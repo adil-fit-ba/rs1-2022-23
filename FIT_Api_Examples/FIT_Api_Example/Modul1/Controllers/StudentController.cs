@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using FIT_Api_Examples.Data;
-using FIT_Api_Examples.Helper;
-using FIT_Api_Examples.Modul2.Models;
-using FIT_Api_Examples.Modul2.ViewModels;
+﻿using FIT_Api_Example.Data;
+using FIT_Api_Example.Helper;
+using FIT_Api_Example.Modul2.Models;
+using FIT_Api_Example.Modul2.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace FIT_Api_Examples.Modul2.Controllers
+namespace FIT_Api_Example.Modul2.Controllers
 {
     //[Authorize]
     [ApiController]
@@ -52,7 +48,7 @@ namespace FIT_Api_Examples.Modul2.Controllers
         [HttpPost("{id}")]
         public ActionResult Update(int id, [FromBody] StudentUpdateVM x)
         {
-            Student student = _dbContext.Student.Include(s => s.opstina_rodjenja.drzava).FirstOrDefault(s => s.id == id);
+            Student? student = _dbContext.Student.Include(s => s.opstina_rodjenja.drzava).FirstOrDefault(s => s.id == id);
 
             if (student == null)
                 return BadRequest("pogresan ID");
@@ -70,7 +66,7 @@ namespace FIT_Api_Examples.Modul2.Controllers
         [HttpPost("{id}")]
         public ActionResult Delete(int id)
         {
-            Student student = _dbContext.Student.Find(id);
+            Student? student = _dbContext.Student.Find(id);
 
             if (student == null || id == 1)
                 return BadRequest("pogresan ID");
@@ -82,7 +78,7 @@ namespace FIT_Api_Examples.Modul2.Controllers
         }
       
         [HttpGet]
-        public PagedList<Student> GetAllPaged(string ime_prezime, int items_per_page, int page_number= 1)
+        public PagedList<Student> GetAllPaged(string? ime_prezime, int items_per_page, int page_number= 1)
         {
             var data = _dbContext.Student
                 .Include(s=>s.opstina_rodjenja.drzava)
@@ -104,30 +100,22 @@ namespace FIT_Api_Examples.Modul2.Controllers
         [HttpPost("{id}")]
         public ActionResult AddProfileImage(int id, [FromForm] StudentImageAddVM x)
         {
-            try
-            {
-                Student student = _dbContext.Student.Include(s=>s.opstina_rodjenja.drzava).FirstOrDefault(s => s.id == id);
+                Student? student = _dbContext.Student.Include(s=>s.opstina_rodjenja.drzava).FirstOrDefault(s => s.id == id);
 
-                if (x.slika_studenta != null && student != null)
-                {
-                    if (x.slika_studenta.Length > 300 * 1000)
-                        return BadRequest("max velicina fajla je 300 KB");
+                if (student == null) return BadRequest("neispravan student id");
+                if (x.slika_studenta.Length > 300 * 1000)
+                    return BadRequest("max velicina fajla je 300 KB");
 
-                    string ekstenzija = Path.GetExtension(x.slika_studenta.FileName);
+                string ekstenzija = Path.GetExtension(x.slika_studenta.FileName);
 
-                    var filename = $"{Guid.NewGuid()}{ekstenzija}";
+                var filename = $"{Guid.NewGuid()}{ekstenzija}";
 
-                    x.slika_studenta.CopyTo(new FileStream(Config.SlikeFolder + filename, FileMode.Create));
-                    student.slika_studenta = Config.SlikeURL + filename;
-                    _dbContext.SaveChanges();
-                }
+                x.slika_studenta.CopyTo(new FileStream(Config.SlikeFolder + filename, FileMode.Create));
+                student.slika_studenta = Config.SlikeURL + filename;
+                _dbContext.SaveChanges();
 
                 return Ok(student);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message + ex.InnerException);
-            }
+           
         }
     }
 }

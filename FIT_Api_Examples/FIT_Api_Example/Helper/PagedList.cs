@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace FIT_Api_Examples.Helper
+﻿namespace FIT_Api_Example.Helper
 {
     public class PagedList<T>
     {

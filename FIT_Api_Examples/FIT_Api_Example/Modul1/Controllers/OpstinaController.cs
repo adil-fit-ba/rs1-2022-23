@@ -1,12 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using FIT_Api_Examples.Data;
-using FIT_Api_Examples.Helper;
-using FIT_Api_Examples.Modul2.Models;
-using FIT_Api_Examples.Modul2.ViewModels;
+﻿using FIT_Api_Example.Data;
+using FIT_Api_Example.Helper;
+using FIT_Api_Example.Modul2.Models;
+using FIT_Api_Example.Modul2.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
-namespace FIT_Api_Examples.Modul2.Controllers
+namespace FIT_Api_Example.Modul2.Controllers
 {
     //[Authorize]
     [ApiController]

@@ -1,4 +1,4 @@
-﻿namespace FIT_Api_Examples.Helper
+﻿namespace FIT_Api_Example.Helper
 {
     public class CmbStavke
     { 

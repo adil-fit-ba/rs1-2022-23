@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+﻿using System.Text.RegularExpressions;
 
-namespace FIT_Api_Examples.Helper
+namespace FIT_Api_Example.Helper
 {
     public static class Class
     {

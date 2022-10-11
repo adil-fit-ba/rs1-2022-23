@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace FIT_Api_Examples.Modul2.Models
+namespace FIT_Api_Example.Modul2.Models
 {
     public class Opstina
     { 
