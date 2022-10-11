@@ -102,7 +102,8 @@ namespace FIT_Api_Example.Modul2.Controllers
         {
                 Student? student = _dbContext.Student.Include(s=>s.opstina_rodjenja.drzava).FirstOrDefault(s => s.id == id);
 
-                if (student == null) return BadRequest("neispravan student id");
+                if (student == null) 
+                    return BadRequest("neispravan student id");
                 if (x.slika_studenta.Length > 300 * 1000)
                     return BadRequest("max velicina fajla je 300 KB");
 
