@@ -11,6 +11,7 @@ namespace FIT_Api_Example.Data
         public DbSet<Student> Student { get; set; }
         public DbSet<Predmet> Predmet{ get; set; }
         public DbSet<Ispit> Ispit { get; set; }
+        public DbSet<PrijavaIspita> PrijavaIspita { get; set; }
 
         public ApplicationDbContext(
             DbContextOptions options) : base(options)
