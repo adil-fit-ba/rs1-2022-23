@@ -10,20 +10,12 @@ namespace FIT_Api_Example.Data
         public DbSet<Opstina> Opstina { get; set; }
         public DbSet<Student> Student { get; set; }
         public DbSet<Predmet> Predmet{ get; set; }
-        public DbSet<Ocjena> Ocjena{ get; set; }
         public DbSet<Ispit> Ispit { get; set; }
         public DbSet<PrijavaIspita> PrijavaIspita { get; set; }
 
         public ApplicationDbContext(
             DbContextOptions options) : base(options)
         {
-        }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
-
-           
         }
     }
 }
