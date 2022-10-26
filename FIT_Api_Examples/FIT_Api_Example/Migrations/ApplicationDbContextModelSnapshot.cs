@@ -125,9 +125,6 @@ namespace FIT_Api_Example.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
-                    b.Property<int?>("BrojcanaOcjena")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("Datum")
                         .HasColumnType("datetime2");
 

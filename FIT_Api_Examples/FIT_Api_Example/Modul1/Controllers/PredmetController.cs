@@ -19,63 +19,47 @@ namespace FIT_Api_Example.Modul2.Controllers
             this._dbContext = dbContext;
         }
 
-
-        public class PredmetSnimiVM
+        public class PredmetAddVM
         {
-            public int  ID { get; set; }
             public string sifraPredmeta { get; set; }
             public string nazivPredmeta { get; set; }
             public int ectsBodov { get; set; }
         }
 
         [HttpPost]
-        public Predmet Snimi([FromBody] PredmetSnimiVM x)
+        public Predmet Add([FromBody] PredmetAddVM x)
         {
-            Predmet? objekat;
-
-            if (x.ID == 0)
+            var noviZapis = new Predmet
             {
-                objekat = new Predmet();
-                _dbContext.Add(objekat);//priprema sql
-            }
-            else
-            {
-                objekat = _dbContext.Predmet.Find(x.ID);
-            }
+                Naziv = x.nazivPredmeta,
+                Sifra = x.sifraPredmeta,
+                Ects = x.ectsBodov,
+            };
 
-            objekat.Naziv = x.nazivPredmeta;
-            objekat.Sifra = x.sifraPredmeta;
-            objekat.Ects = x.ectsBodov;
-            
-            _dbContext.SaveChanges(); //exceute sql -- update Predmet set ... where...
-            return objekat;
+            _dbContext.Add(noviZapis);//priprema sql
+            _dbContext.SaveChanges();//exceute sql -- insert into Predmet
+            return noviZapis;
         }
 
 
 
+       
+
         [HttpGet]
-        public List<PredmetGetAllVM> GetAll(string? f, float min_prosjecna_ocjena)
+        public List<PredmetGetAllVM> GetAll()
         {
             var pripremaUpita = _dbContext.Predmet
-                .Where(p=>(f == null ||  p.Naziv.ToLower().StartsWith(f.ToLower()))
-                   &&
-                   
-                   (
-                       
-                       (_dbContext.Ocjena.Where(o=>o.PredmetID==p.ID).Average(x=>(int?)x.BrojcanaOcjena)??0)
-                       
-                       <= min_prosjecna_ocjena)
-                
-                )
+                .Where(p=>p.Naziv.StartsWith("A"))
                 .OrderBy(p => p.Naziv)
                 .ThenBy(p=>p.Sifra)
                 .Take(100)
                 .Select(p=>new PredmetGetAllVM
                 {
-                    ECTS = p.Ects.ToString(),
+                    ECTS = p.Ects,
                     Naziv = p.Naziv,
                     ProsjecnaOcjena = 0
-                });
+                })
+                ;
 
 
             return pripremaUpita
