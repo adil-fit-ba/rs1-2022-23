@@ -1,7 +1,10 @@
-﻿namespace FIT_Api_Example.Modul1.ViewModels
+﻿using FIT_Api_Example.Modul1.Models;
+
+namespace FIT_Api_Example.Modul1.ViewModels
 {
     public class PredmetGetAllVM
     {
+        
 
         public string Naziv { get; set; }
         public string ECTS { get; set; }
