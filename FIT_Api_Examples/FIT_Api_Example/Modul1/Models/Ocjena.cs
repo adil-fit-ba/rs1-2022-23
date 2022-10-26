@@ -20,6 +20,6 @@ namespace FIT_Api_Example.Modul2.Models
         public Student Student { get; set; }
         public int StudentID { get; set; }
 
-
+        public int BrojcanaOcjena { get; set; }
     }
 }
