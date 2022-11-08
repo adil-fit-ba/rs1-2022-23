@@ -1,27 +1,17 @@
-
-<table class="table table-bordered">
-  <thead>
-  <tr>
-    <th>ID</th>
-    <th>Opis</th>
-    <th>Skracenica</th>
-  </tr>
-  </thead>
-  <tr *ngFor="let x of getpodaci()">
-    <td>{{x.id}}</td>
-    <td>{{x.opis}}</td>
-    <td>{{x.skrecenica}}</td>
-    <td><img style="width: 30px" src="{{x.slika_studenta}}"></td>
-    <td><button (click)="odabrana_drzava=x">Edit</button></td>
-  </tr>
-</table>
+<h2>Hello FIT</h2>
 
 
-<div *ngIf="odabrana_drzava != null">
-  <label>Naziv</label>
-  <input [(ngModel)]="odabrana_drzava.opis">
-
-  <label>Skracenica</label>
-  <input [(ngModel)]="odabrana_drzava.skrecenica">
-  <button (click)="snimi()">Snimi</button>
+Brojac {{brojac}}
+<br>
+<div *ngIf="jel_vidljivo()" [ngStyle]="stil_za_ime()">
+  Kako si {{ime}}
 </div>
+
+<br>
+
+<input value="{{ime}}"><br>
+<input [value]="ime"><br>
+<input [(ngModel)]="ime"><br>
+<button class="btn btn-outline-danger" (click)="f1()">Dugme f1</button>
+
+<div *ngFor="let x of niz">{{x}}</div>

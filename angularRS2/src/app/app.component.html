@@ -1,9 +1,12 @@
 <nav>
-  <a class="button" routerLink="/proba1">Proba1</a> |
-  <a class="button" routerLink="/studenti">Studenti</a> |
+  <a class="button" routerLink="/putanja-proba1">Proba1</a> |
+  <a class="button" routerLink="/putanja-studenti">Studenti</a> |
+  <a class="button" routerLink="/putanja-predmeti">Predmeti</a> |
+  <a class="button" routerLink="/putanja-opstine">Opstine</a> |
+  <a class="button" routerLink="/putanja-drzave">Drzave</a> |
   <br>
-  <a class="button" onclick="window.location.replace('/proba1');">Proba1</a> |
-  <a class="button" onclick="window.location.replace('/studenti');">Studenti</a> |
 </nav>
+<div style="border: 1px solid red">
+  <router-outlet></router-outlet>
 
-<router-outlet></router-outlet>
+</div>

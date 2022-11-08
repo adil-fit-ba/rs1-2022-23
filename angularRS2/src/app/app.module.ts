@@ -7,18 +7,27 @@ import {HttpClientModule} from "@angular/common/http";
 import { Proba1Component } from './proba1/proba1.component';
 import { StudentiComponent } from './studenti/studenti.component';
 import {RouterModule} from "@angular/router";
+import { DrzaveComponent } from './drzave/drzave.component';
+import { OpstineComponent } from './opstine/opstine.component';
+import { PredmetiComponent } from './predmeti/predmeti.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     Proba1Component,
-    StudentiComponent
+    StudentiComponent,
+    DrzaveComponent,
+    OpstineComponent,
+    PredmetiComponent
   ],
     imports: [
         BrowserModule,
       RouterModule.forRoot([
-        {path: 'studenti', component: StudentiComponent},
-        {path: 'proba1', component: Proba1Component},
+        {path: 'putanja-studenti', component: StudentiComponent},
+        {path: 'putanja-proba1', component: Proba1Component},
+        {path: 'putanja-opstine', component: OpstineComponent},
+        {path: 'putanja-drzave', component: DrzaveComponent},
+        {path: 'putanja-predmeti', component: PredmetiComponent},
       ]),
         FormsModule,
       HttpClientModule
