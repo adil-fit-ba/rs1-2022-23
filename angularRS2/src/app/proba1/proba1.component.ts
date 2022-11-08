@@ -8,34 +8,33 @@ import {MojConfig} from "../moj-config";
   styleUrls: ['./proba1.component.css']
 })
 export class Proba1Component {
-
-  title = 'angularRS4';
-
-  ime = "Adil";
-  brojac=0;
+   drzava_podaci: any;
+  odabrana_drzava: any;
 
 
+  constructor(private httpKlijent: HttpClient) {
 
-  niz:string[]=['jedan', 'dva', 'tri', 'četiri'];
+  }
+  ngOnInit(): void {
+    this.preuzmi_podatke();
+  }
 
-  f1()
+  preuzmi_podatke()
   {
-    setInterval(()=>{
-      this.brojac++;
-    }, 1000);
+    this.httpKlijent.get(MojConfig.adresa_servera + "/Drzava/GetAll").subscribe(x=>{
+      this.drzava_podaci = x;
+    });
   }
 
-  jel_vidljivo() {
-    return this.ime.length>3;
+  getpodaci() {
+    if (this.drzava_podaci == null)
+      return [];
+    return this.drzava_podaci;
   }
 
-  stil_za_ime() {
-    if (this.ime.startsWith('A'))
-      return {color:'blue', border:'2px solid'};
-    else
-      return {color:'red', border:'2px solid yellow'};
+  snimi() {
+    this.httpKlijent.post(MojConfig.adresa_servera + "/Drzava/Snimi/", this.odabrana_drzava).subscribe(x=>{
+
+    });
   }
-
-
-
 }

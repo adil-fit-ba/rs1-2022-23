@@ -10,23 +10,21 @@ import {MojConfig} from "../moj-config";
 export class StudentiComponent implements OnInit {
 
   constructor(private httpKlijent: HttpClient) {
+
   }
    odabrani_student:any;
-
   student_podaci: any;
   filter_ime: any="";
 
+  ngOnInit(): void {
+    this.preuzmi_podatke();
+  }
 
   preuzmi_podatke()
   {
     this.httpKlijent.get(MojConfig.adresa_servera + "/Student/GetAll").subscribe(x=>{
       this.student_podaci = x;
     });
-
-  }
-
-  ngOnInit(): void {
-    this.preuzmi_podatke();
   }
 
   getpodaci() {
