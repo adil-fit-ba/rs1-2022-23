@@ -1,0 +1,17 @@
+<h2>Hello FIT</h2>
+
+
+Brojac {{brojac}}
+<br>
+<div *ngIf="jel_vidljivo()" [ngStyle]="stil_za_ime()">
+  Kako si {{ime}}
+</div>
+
+<br>
+
+<input value="{{ime}}"><br>
+<input [value]="ime"><br>
+<input [(ngModel)]="ime"><br>
+<button class="btn btn-outline-danger" (click)="f1()">Dugme f1</button>
+
+<div *ngFor="let x of niz">{{x}}</div>
