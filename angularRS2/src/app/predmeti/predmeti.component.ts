@@ -23,14 +23,28 @@ export class PredmetiComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.httpKlijent.get(MojConfig.adresa_servera + "/Predmet/GetAll").subscribe(((x:any)=>{
-        this.podaci = x;
-    }));
+ this.preuzmiPodatke();
   }
 
   snimi() {
     this.httpKlijent.post(MojConfig.adresa_servera + "/Predmet/Snimi", this.odabrani_predmet).subscribe(((x:any)=>{
+      this.preuzmiPodatke();
+      this.noviPredmet();
+    }));
+  }
 
+  noviPredmet() {
+    this.odabrani_predmet = {
+       id:0,
+       naziv:'',
+      ects:5,
+      skracenica:''
+    }
+  }
+
+  private preuzmiPodatke() {
+    this.httpKlijent.get(MojConfig.adresa_servera + "/Predmet/GetAll").subscribe(((x:any)=>{
+      this.podaci = x;
     }));
   }
 }
