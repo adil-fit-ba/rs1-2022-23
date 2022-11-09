@@ -1,12 +1,15 @@
 <h2>Hello FIT</h2>
 <input>
-<button (click)="buttonProba1()">Proba1</button>
-<button (click)="buttonStudenti()">Studenti</button>
+<nav>
+  <a class="button" routerLink="/putanja-proba1">Proba1</a> |
+  <a class="button" routerLink="/putanja-studenti">Studenti</a> |
+  <a class="button" routerLink="/putanja-predmeti">Predmeti</a> |
+  <a class="button" routerLink="/putanja-opstine">Opstine</a> |
+  <a class="button" routerLink="/putanja-drzave">Drzave</a> |
+  <br>
+</nav>
 
-<div style="border: 1px solid red" *ngIf="proba1">
-  <app-proba1></app-proba1>
+<div style="border: 1px solid red" >
+  <router-outlet></router-outlet>
 </div>
 
-<div style="border: 1px solid aqua" *ngIf="studenti">
-<app-studenti></app-studenti>
-</div>

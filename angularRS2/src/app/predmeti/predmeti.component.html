@@ -1,1 +1,35 @@
 <p>predmeti works!</p>
+
+
+<table class="table table-bordered">
+  <thead>
+  <tr>
+    <th>Naziv</th>
+    <th>Skracenica</th>
+    <th>ECTS</th>
+    <th>Prosjecna ocjena</th>
+    <th>Akcija</th>
+  </tr>
+  </thead>
+  <tr *ngFor="let x of podaci">
+    <td>{{x.naziv}}</td>
+    <td>{{x.sifra}}</td>
+    <td>{{x.ects}}</td>
+    <td>{{x.prosjecnaOcjena}}</td>
+    <td><button (click)="odabrani_predmet=x" >Edit</button></td>
+  </tr>
+</table>
+
+
+<div *ngIf="odabrani_predmet != null">
+  <label>Nazv</label>
+  <input [(ngModel)]="odabrani_predmet.naziv">
+
+  <label>Sifra</label>
+  <input [(ngModel)]="odabrani_predmet.sifra">
+
+  <label>ECTS</label>
+  <input [(ngModel)]="odabrani_predmet.ects">
+
+  <button (click)="snimi()">Snimi</button>
+</div>

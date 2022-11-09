@@ -20,32 +20,25 @@ namespace FIT_Api_Example.Modul2.Controllers
         }
 
 
-        public class PredmetSnimiVM
-        {
-            public int  ID { get; set; }
-            public string sifraPredmeta { get; set; }
-            public string nazivPredmeta { get; set; }
-            public int ectsBodov { get; set; }
-        }
-
+      
         [HttpPost]
         public Predmet Snimi([FromBody] PredmetSnimiVM x)
         {
             Predmet? objekat;
 
-            if (x.ID == 0)
+            if (x.id == 0)
             {
                 objekat = new Predmet();
                 _dbContext.Add(objekat);//priprema sql
             }
             else
             {
-                objekat = _dbContext.Predmet.Find(x.ID);
+                objekat = _dbContext.Predmet.Find(x.id);
             }
 
-            objekat.Naziv = x.nazivPredmeta;
-            objekat.Sifra = x.sifraPredmeta;
-            objekat.Ects = x.ectsBodov;
+            objekat.Naziv = x.naziv;
+            objekat.Sifra = x.sifra;
+            objekat.Ects = x.ects;
             
             _dbContext.SaveChanges(); //exceute sql -- update Predmet set ... where...
             return objekat;
@@ -72,8 +65,10 @@ namespace FIT_Api_Example.Modul2.Controllers
                 .Take(100)
                 .Select(p=>new PredmetGetAllVM
                 {
+                    ID = p.ID,
                     ECTS = p.Ects.ToString(),
                     Naziv = p.Naziv,
+                    Sifra = p.Sifra,
                     ProsjecnaOcjena = 0
                 });
 
