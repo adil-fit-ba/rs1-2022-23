@@ -1,6 +1,6 @@
 <p>predmeti works!</p>
 
-
+<input [(ngModel)]="filter_ime">
 <table class="table table-bordered">
   <thead>
   <tr>
@@ -11,7 +11,7 @@
     <th>Akcija</th>
   </tr>
   </thead>
-  <tr *ngFor="let x of podaci">
+  <tr *ngFor="let x of getpodaci()">
     <td>{{x.naziv}}</td>
     <td>{{x.sifra}}</td>
     <td>{{x.ects}}</td>

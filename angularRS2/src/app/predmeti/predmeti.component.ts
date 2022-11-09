@@ -10,12 +10,13 @@ import {MojConfig} from "../moj-config";
 export class PredmetiComponent implements OnInit {
   podaci: any;
   odabrani_predmet: any;
+  filter_ime="";
 
   getpodaci()
   {
     if (this.podaci==null)
       return [];
-    return this.podaci;
+    return this.podaci.filter((x:any)=>x.naziv.toLowerCase().startsWith(this.filter_ime.toLowerCase()));
   }
 
   constructor(private httpKlijent: HttpClient) {
@@ -29,7 +30,7 @@ export class PredmetiComponent implements OnInit {
 
   snimi() {
     this.httpKlijent.post(MojConfig.adresa_servera + "/Predmet/Snimi", this.odabrani_predmet).subscribe(((x:any)=>{
-      
+
     }));
   }
 }
