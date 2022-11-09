@@ -8,59 +8,31 @@ import {HttpClient} from "@angular/common/http";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit{
-  title = 'angularRS4';
-
-  ime = "Adil";
-  brojac=0;
-
-  odabrani_student:any;
-
-  constructor(private httpKlijent: HttpClient) {
-  }
-
-  niz:string[]=['jedan', 'dva', 'tri', 'četiri'];
-  student_podaci: any;
-  filter_ime: any="";
-
-  f1()
-  {
-    setInterval(()=>{
-      this.brojac++;
-    }, 1000);
-  }
-
-  jel_vidljivo() {
-    return this.ime.length>3;
-  }
-
-  stil_za_ime() {
-    if (this.ime.startsWith('A'))
-      return {color:'blue', border:'2px solid'};
-    else
-      return {color:'red', border:'2px solid yellow'};
-  }
-
-  preuzmi_podatke()
-  {
-    this.httpKlijent.get(MojConfig.adresa_servera + "/Student/GetAll").subscribe(x=>{
-      this.student_podaci = x;
-    });
-
-  }
-
+  proba1: boolean=false;
+  studenti: boolean=false;
   ngOnInit(): void {
-    this.preuzmi_podatke();
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+
+    const putanja = urlParams.get('putanja')
+
+    if (putanja == "studenti")
+      this.studenti=true;
+
+    if (putanja == "proba1")
+      this.proba1=true;
   }
 
-  getpodaci() {
-    if (this.student_podaci==null)
-      return [];
-    return this.student_podaci.filter((x:any)=>x.ime.toLowerCase().startsWith(this.filter_ime.toLowerCase()));
+
+  buttonProba1() {
+    this.proba1 = true;
+    this.studenti = false;
+    history.replaceState( {} , 'proba1', '/?putanja=proba1' );
   }
 
-  snimi() {
-    this.httpKlijent.post(MojConfig.adresa_servera + "/Student/Snimi/", this.odabrani_student).subscribe(x=>{
-
-    });
+  buttonStudenti() {
+    this.proba1 = false;
+    this.studenti = true;
+    history.replaceState( {} , 'studenti', '/?putanja=studenti' );
   }
 }
