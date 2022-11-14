@@ -117,32 +117,6 @@ namespace FIT_Api_Example.Migrations
                     b.ToTable("Drzava");
                 });
 
-            modelBuilder.Entity("FIT_Api_Example.Modul2.Models.Ocjena", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
-
-                    b.Property<DateTime>("Datum")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("PredmetID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("StudentID")
-                        .HasColumnType("int");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("PredmetID");
-
-                    b.HasIndex("StudentID");
-
-                    b.ToTable("Ocjena");
-                });
-
             modelBuilder.Entity("FIT_Api_Example.Modul2.Models.Opstina", b =>
                 {
                     b.Property<int>("id")
@@ -231,25 +205,6 @@ namespace FIT_Api_Example.Migrations
                         .IsRequired();
 
                     b.Navigation("Ispit");
-
-                    b.Navigation("Student");
-                });
-
-            modelBuilder.Entity("FIT_Api_Example.Modul2.Models.Ocjena", b =>
-                {
-                    b.HasOne("FIT_Api_Example.Modul1.Models.Predmet", "Predmet")
-                        .WithMany()
-                        .HasForeignKey("PredmetID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("FIT_Api_Example.Modul2.Models.Student", "Student")
-                        .WithMany()
-                        .HasForeignKey("StudentID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Predmet");
 
                     b.Navigation("Student");
                 });
