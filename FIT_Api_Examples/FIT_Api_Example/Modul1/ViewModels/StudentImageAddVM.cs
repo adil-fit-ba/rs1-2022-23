@@ -1,4 +1,4 @@
-﻿namespace FIT_Api_Example.Modul2.ViewModels
+﻿namespace FIT_Api_Example.Modul1.ViewModels
 {
     public class StudentImageAddVM
     {

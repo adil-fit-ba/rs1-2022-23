@@ -1,20 +1,17 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using FIT_Api_Example.Modul0_Autentifikacija.Models;
 
-namespace FIT_Api_Example.Modul2.Models
+namespace FIT_Api_Example.Modul1.Models
 {
-    public class Student
+    [Table("Student")]
+    public class Student : KorisnickiNalog
     { 
-        [Key]
-        public int id { get; set; }
-        public string ime { get; set; }
-        public string prezime{ get; set; }
-        public string broj_indeksa { get; set; }
-        [ForeignKey(nameof(opstina_rodjenja))]
-        public int opstina_rodjenja_id { get; set; }
-        public Opstina opstina_rodjenja { get; set; }
-        public DateTime datum_rodjenja { get; set; }
-        public DateTime created_time { get; set; }
-        public string slika_studenta { get; set; }
+        public string Ime { get; set; }
+        public string Prezime{ get; set; }
+        public string BrojIndeksa { get; set; }
+        [ForeignKey(nameof(OpstinaRodjenja))]
+        public int OpstinaRodjenjaID { get; set; }
+        public Opstina OpstinaRodjenja { get; set; }
+        public DateTime DatumRodjenja { get; set; }
     }
 }

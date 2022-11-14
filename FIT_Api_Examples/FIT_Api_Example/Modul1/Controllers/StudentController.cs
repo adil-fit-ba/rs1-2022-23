@@ -1,11 +1,11 @@
 ﻿using FIT_Api_Example.Data;
 using FIT_Api_Example.Helper;
-using FIT_Api_Example.Modul2.Models;
-using FIT_Api_Example.Modul2.ViewModels;
+using FIT_Api_Example.Modul1.Models;
+using FIT_Api_Example.Modul1.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace FIT_Api_Example.Modul2.Controllers
+namespace FIT_Api_Example.Modul1.Controllers
 {
     //[Authorize]
     [ApiController]
@@ -19,10 +19,10 @@ namespace FIT_Api_Example.Modul2.Controllers
             this._dbContext = dbContext;
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{ID}")]
         public ActionResult Get(int id)
         {
-            return Ok(_dbContext.Student.Include(s => s.opstina_rodjenja.drzava).FirstOrDefault(s => s.id == id)); ;
+            return Ok(_dbContext.Student.Include(s => s.OpstinaRodjenja.drzava).FirstOrDefault(s => s.ID == id)); ;
         }
 
 
@@ -35,27 +35,26 @@ namespace FIT_Api_Example.Modul2.Controllers
                 student = new Student();
                 _dbContext.Add(student);
 
-                student.slika_studenta = Config.SlikeURL + "empty.png";
-                student.created_time = DateTime.Now;
+                student.SlikaKorisnika = Config.SlikeURL + "empty.png";
             }
             else
             {
-                student = _dbContext.Student.Include(s => s.opstina_rodjenja.drzava).FirstOrDefault(s => s.id == x.id);
+                student = _dbContext.Student.Include(s => s.OpstinaRodjenja.drzava).FirstOrDefault(s => s.ID == x.id);
                 if (student == null)
                     return BadRequest("pogresan ID");
             }
 
-            student.ime = x.ime.RemoveTags();
-            student.prezime = x.prezime.RemoveTags();
-            student.broj_indeksa = x.broj_indeksa;
-            student.datum_rodjenja = x.datum_rodjenja;
-            student.opstina_rodjenja_id = x.opstina_rodjenja_id;
+            student.Ime = x.ime.RemoveTags();
+            student.Prezime = x.prezime.RemoveTags();
+            student.BrojIndeksa = x.broj_indeksa;
+            student.DatumRodjenja = x.datum_rodjenja;
+            student.OpstinaRodjenjaID = x.opstina_rodjenja_id;
 
             _dbContext.SaveChanges();
             return Ok(student);
         }
 
-        [HttpPost("{id}")]
+        [HttpPost("{ID}")]
         public ActionResult Delete(int id)
         {
             Student? student = _dbContext.Student.Find(id);
@@ -73,8 +72,8 @@ namespace FIT_Api_Example.Modul2.Controllers
         public PagedList<Student> GetAllPaged(string? ime_prezime, int items_per_page, int page_number= 1)
         {
             var data = _dbContext.Student
-                .Include(s=>s.opstina_rodjenja.drzava)
-                .Where(x => ime_prezime == null || (x.ime + " " + x.prezime).StartsWith(ime_prezime) || (x.prezime + " " + x.ime).StartsWith(ime_prezime)).OrderByDescending(s => s.id)
+                .Include(s=>s.OpstinaRodjenja.drzava)
+                .Where(x => ime_prezime == null || (x.Ime + " " + x.Prezime).StartsWith(ime_prezime) || (x.Prezime + " " + x.Ime).StartsWith(ime_prezime)).OrderByDescending(s => s.ID)
                 .AsQueryable();
             return PagedList<Student>.Create(data, page_number, items_per_page);
         }
@@ -83,19 +82,19 @@ namespace FIT_Api_Example.Modul2.Controllers
         public List<Student> GetAll(string? ime_prezime)
         {
             var data = _dbContext.Student
-                .Include(s => s.opstina_rodjenja.drzava)
-                .Where(x => ime_prezime == null || (x.ime + " " + x.prezime).StartsWith(ime_prezime) || (x.prezime + " " + x.ime).StartsWith(ime_prezime)).OrderByDescending(s => s.id)
+                .Include(s => s.OpstinaRodjenja.drzava)
+                .Where(x => ime_prezime == null || (x.Ime + " " + x.Prezime).StartsWith(ime_prezime) || (x.Prezime + " " + x.Ime).StartsWith(ime_prezime)).OrderByDescending(s => s.ID)
                 .AsQueryable();
             return data.Take(100).ToList();
         }
 
-        [HttpPost("{id}")]
+        [HttpPost("{ID}")]
         public ActionResult AddProfileImage(int id, [FromForm] StudentImageAddVM x)
         {
-                Student? student = _dbContext.Student.Include(s=>s.opstina_rodjenja.drzava).FirstOrDefault(s => s.id == id);
+                Student? student = _dbContext.Student.Include(s=>s.OpstinaRodjenja.drzava).FirstOrDefault(s => s.ID == id);
 
                 if (student == null) 
-                    return BadRequest("neispravan student id");
+                    return BadRequest("neispravan Student ID");
                 if (x.slika_studenta.Length > 300 * 1000)
                     return BadRequest("max velicina fajla je 300 KB");
 
@@ -104,7 +103,7 @@ namespace FIT_Api_Example.Modul2.Controllers
                 var filename = $"{Guid.NewGuid()}{ekstenzija}";
 
                 x.slika_studenta.CopyTo(new FileStream(Config.SlikeFolder + filename, FileMode.Create));
-                student.slika_studenta = Config.SlikeURL + filename;
+                student.SlikaKorisnika = Config.SlikeURL + filename;
                 _dbContext.SaveChanges();
 
                 return Ok(student);

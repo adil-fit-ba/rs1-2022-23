@@ -1,11 +1,9 @@
 ﻿using FIT_Api_Example.Data;
-using FIT_Api_Example.Helper;
 using FIT_Api_Example.Modul1.Models;
 using FIT_Api_Example.Modul1.ViewModels;
-using FIT_Api_Example.Modul2.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace FIT_Api_Example.Modul2.Controllers
+namespace FIT_Api_Example.Modul1.Controllers
 {
     //[Authorize]
     [ApiController]
@@ -74,7 +72,7 @@ namespace FIT_Api_Example.Modul2.Controllers
 
 
             return pripremaUpita
-                .ToList(); //exceute sql -- select top 100 * from Predmet where naziv like 'A%' order by naziv, sifra
+                .ToList(); //exceute sql -- select top 100 * from Predmet where Naziv like 'A%' order by Naziv, sifra
         }
     }
 }

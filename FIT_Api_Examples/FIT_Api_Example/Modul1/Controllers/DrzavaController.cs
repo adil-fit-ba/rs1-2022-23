@@ -1,10 +1,9 @@
 ﻿using FIT_Api_Example.Data;
-using FIT_Api_Example.Helper;
+using FIT_Api_Example.Modul1.Models;
 using FIT_Api_Example.Modul1.ViewModels;
-using FIT_Api_Example.Modul2.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace FIT_Api_Example.Modul2.Controllers
+namespace FIT_Api_Example.Modul1.Controllers
 {
     //[Authorize]
     [ApiController]
@@ -34,8 +33,8 @@ namespace FIT_Api_Example.Modul2.Controllers
                 objekat = _dbContext.Drzava.Find(x.id);
             }
 
-            objekat.naziv = x.naziv;
-            objekat.skrecenica = x.skracenica;
+            objekat.Naziv = x.naziv;
+            objekat.Skracenica = x.skracenica;
 
             _dbContext.SaveChanges();
             return objekat;
@@ -45,12 +44,12 @@ namespace FIT_Api_Example.Modul2.Controllers
         public ActionResult GetAll()
         {
             var data = _dbContext.Drzava
-                .OrderBy(s => s.naziv)
+                .OrderBy(s => s.Naziv)
                 .Select(s => new DrzavaGetAllVM()
                 {
-                    id = s.id,
-                    skracenica = s.skrecenica,
-                    naziv = s.naziv,
+                    id = s.ID,
+                    skracenica = s.Skracenica,
+                    naziv = s.Naziv,
                 })
                 .Take(100);
             return Ok(data.ToList());
