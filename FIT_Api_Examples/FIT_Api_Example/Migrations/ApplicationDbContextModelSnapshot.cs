@@ -117,6 +117,7 @@ namespace FIT_Api_Example.Migrations
                     b.ToTable("Drzava");
                 });
 
+<<<<<<< HEAD
             modelBuilder.Entity("FIT_Api_Example.Modul2.Models.Ocjena", b =>
                 {
                     b.Property<int>("ID")
@@ -146,6 +147,8 @@ namespace FIT_Api_Example.Migrations
                     b.ToTable("Ocjena");
                 });
 
+=======
+>>>>>>> d5e35102a96dcb29e2a19e1f58f7800eba38ece3
             modelBuilder.Entity("FIT_Api_Example.Modul2.Models.Opstina", b =>
                 {
                     b.Property<int>("id")
@@ -234,25 +237,6 @@ namespace FIT_Api_Example.Migrations
                         .IsRequired();
 
                     b.Navigation("Ispit");
-
-                    b.Navigation("Student");
-                });
-
-            modelBuilder.Entity("FIT_Api_Example.Modul2.Models.Ocjena", b =>
-                {
-                    b.HasOne("FIT_Api_Example.Modul1.Models.Predmet", "Predmet")
-                        .WithMany()
-                        .HasForeignKey("PredmetID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("FIT_Api_Example.Modul2.Models.Student", "Student")
-                        .WithMany()
-                        .HasForeignKey("StudentID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Predmet");
 
                     b.Navigation("Student");
                 });
