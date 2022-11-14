@@ -1,0 +1,29 @@
+<p>studenti works!</p>
+
+
+<input [(ngModel)]="filter_ime">
+<table class="table table-bordered">
+  <thead>
+  <tr>
+    <th>Ime</th>
+    <th>Prezime</th>
+    <th>Slika</th>
+  </tr>
+  </thead>
+  <tr *ngFor="let x of getpodaci()">
+    <td>{{x.ime}}</td>
+    <td>{{x.prezime}}</td>
+    <td><img style="width: 30px" src="{{x.slika_studenta}}"></td>
+    <td><button (click)="odabrani_student=x">Edit</button></td>
+  </tr>
+</table>
+
+<div  *ngIf="odabrani_student != null">
+  <label>Ime</label>
+  <input [(ngModel)]="odabrani_student.ime">
+
+  <label>Prezime</label>
+  <input [(ngModel)]="odabrani_student.prezime">
+
+  <button (click)="snimi()">Snimi</button>
+</div>
