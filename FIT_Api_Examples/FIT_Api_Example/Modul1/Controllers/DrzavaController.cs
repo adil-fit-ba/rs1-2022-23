@@ -20,30 +20,42 @@ namespace FIT_Api_Example.Modul2.Controllers
 
      
         [HttpPost]
-        public Drzava Add([FromBody] DrzavaAddVM x)
+        public Drzava Snimi([FromBody] DrzavaSnimiVM x)
         {
-            var newEmployee = new Drzava
-            {
-                naziv = x.opis,
-            };
+            Drzava? objekat;
 
-            _dbContext.Add(newEmployee);
+            if (x.id == 0)
+            {
+                objekat = new Drzava();
+                _dbContext.Add(objekat);//priprema sql
+            }
+            else
+            {
+                objekat = _dbContext.Drzava.Find(x.id);
+            }
+
+            objekat.naziv = x.naziv;
+            objekat.skrecenica = x.skracenica;
+
             _dbContext.SaveChanges();
-            return newEmployee;
+            return objekat;
         }
 
         [HttpGet]
-        public List<CmbStavke> GetAll()
+        public ActionResult GetAll()
         {
             var data = _dbContext.Drzava
                 .OrderBy(s => s.naziv)
-                .Select(s => new CmbStavke()
+                .Select(s => new DrzavaGetAllVM()
                 {
                     id = s.id,
-                    opis = s.naziv,
+                    skracenica = s.skrecenica,
+                    naziv = s.naziv,
                 })
-                .AsQueryable();
-            return data.Take(100).ToList();
+                .Take(100);
+            return Ok(data.ToList());
         }
     }
+
+   
 }
