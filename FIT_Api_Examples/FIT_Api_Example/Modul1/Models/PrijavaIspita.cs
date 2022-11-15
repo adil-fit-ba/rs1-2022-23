@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using FIT_Api_Example.Modul2.Models;
 
 namespace FIT_Api_Example.Modul1.Models
 {

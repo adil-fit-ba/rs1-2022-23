@@ -1,10 +1,9 @@
 ﻿using FIT_Api_Example.Data;
-using FIT_Api_Example.Helper;
-using FIT_Api_Example.Modul2.Models;
-using FIT_Api_Example.Modul2.ViewModels;
+using FIT_Api_Example.Modul1.Models;
+using FIT_Api_Example.Modul1.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
-namespace FIT_Api_Example.Modul2.Controllers
+namespace FIT_Api_Example.Modul1.Controllers
 {
     //[Authorize]
     [ApiController]
@@ -24,7 +23,7 @@ namespace FIT_Api_Example.Modul2.Controllers
             var newEmployee = new Opstina
             {
                 description = x.opis,
-                drzava_id = x.drzava_id,
+                DrzavaID = x.drzava_id,
             };
 
             _dbContext.Add(newEmployee);
@@ -33,31 +32,31 @@ namespace FIT_Api_Example.Modul2.Controllers
         }
 
         [HttpGet]
-        public List<CmbStavke> GetByDrzava(int drzava_id)
+        public ActionResult GetByDrzava(int drzava_id)
         {
-            var data = _dbContext.Opstina.Where(x => x.drzava_id == drzava_id)
+            var data = _dbContext.Opstina.Where(x => x.DrzavaID == drzava_id)
                 .OrderBy(s => s.description)
-                .Select(s => new CmbStavke()
+                .Select(s => new 
                 {
-                    id = s.id,
-                    opis = s.drzava.naziv + " - " + s.description,
+                    id = s.ID,
+                    opis = s.drzava.Naziv + " - " + s.description,
                 })
                 .AsQueryable();
-            return data.Take(100).ToList();
+            return Ok(data.Take(100).ToList());
         }
 
         [HttpGet]
-        public List<CmbStavke> GetByAll()
+        public ActionResult GetByAll()
         {
             var data = _dbContext.Opstina
                 .OrderBy(s => s.description)
-                .Select(s => new CmbStavke()
+                .Select(s => new 
                 {
-                    id = s.id,
-                    opis = s.drzava.naziv + " - " + s.description,
+                    id = s.ID,
+                    opis = s.drzava.Naziv + " - " + s.description,
                 })
                 .AsQueryable();
-            return data.Take(100).ToList();
+            return Ok(data.Take(100).ToList());
         }
     }
 }

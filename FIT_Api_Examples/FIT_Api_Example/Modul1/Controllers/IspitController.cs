@@ -1,11 +1,9 @@
 ﻿using FIT_Api_Example.Data;
-using FIT_Api_Example.Helper;
 using FIT_Api_Example.Modul1.Models;
 using FIT_Api_Example.Modul1.ViewModels;
-using FIT_Api_Example.Modul2.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace FIT_Api_Example.Modul2.Controllers
+namespace FIT_Api_Example.Modul1.Controllers
 {
     //[Authorize]
     [ApiController]
@@ -19,12 +17,7 @@ namespace FIT_Api_Example.Modul2.Controllers
             this._dbContext = dbContext;
         }
 
-        public class IspitDodajVM
-        {
-            public string naziv { get; set; }
-            public int predmetid { get; set; }
-        }
-
+      
         [HttpPost]
         public Ispit Add([FromBody] IspitDodajVM x)
         {
@@ -41,17 +34,17 @@ namespace FIT_Api_Example.Modul2.Controllers
         }
 
         [HttpGet]
-        public List<CmbStavke> GetAll()
+        public ActionResult GetAll()
         {
             var data = _dbContext.Ispit
                 .OrderBy(s => s.Datum)
-                .Select(s => new CmbStavke()
+                .Select(s => new 
                 {
                     id = s.ID,
                     opis = s.Naziv + s.Predmet.Naziv,
                 })
                 .AsQueryable();
-            return data.Take(100).ToList();
+            return Ok(data.Take(100).ToList());
         }
     }
 }
