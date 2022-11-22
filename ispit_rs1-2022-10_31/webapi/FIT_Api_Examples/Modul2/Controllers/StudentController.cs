@@ -26,8 +26,7 @@ namespace FIT_Api_Examples.Modul2.Controllers
             this._dbContext = dbContext;
         }
 
-      
-
+       
         [HttpGet]
         public ActionResult<List<Student>> GetAll(string ime_prezime)
         {

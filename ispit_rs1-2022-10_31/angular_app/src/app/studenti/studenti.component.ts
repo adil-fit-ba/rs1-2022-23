@@ -65,9 +65,6 @@ export class StudentiComponent implements OnInit {
     );
   }
 
-  obrisibutton(s: any) {
-
-  }
 
   novi_student_dugme() {
     this.odabranistudent = {
@@ -78,7 +75,8 @@ export class StudentiComponent implements OnInit {
   }
 
   otvori_maticnuknjigu(s: any) {
-    //
+    //otvara komponentu student-maticnaknjiga te proslijeđuje id odabranog studenta
     this.router.navigate(['/student-maticnaknjiga', s.id]);
   }
+
 }
