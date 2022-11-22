@@ -11,7 +11,6 @@ import { HomeComponent } from './home/home.component';
 import {AutorizacijaLoginProvjera} from "./_guards/autorizacija-login-provjera.service";
 import { NotFoundComponent } from './not-found/not-found.component';
 import { StudentMaticnaknjigaComponent } from './student-maticnaknjiga/student-maticnaknjiga.component';
-import { ChartsModule } from 'ng2-charts';
 import { StudentEditComponent } from './studenti/student-edit/student-edit.component';
 import { PostavkeProfilaComponent } from './postavke-profila/postavke-profila.component';
 @NgModule({
@@ -39,7 +38,6 @@ import { PostavkeProfilaComponent } from './postavke-profila/postavke-profila.co
     ]),
     FormsModule,
     HttpClientModule,
-    ChartsModule,
   ],
   providers: [
     AutorizacijaLoginProvjera,
