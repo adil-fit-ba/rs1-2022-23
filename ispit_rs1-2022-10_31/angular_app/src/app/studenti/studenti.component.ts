@@ -65,6 +65,19 @@ export class StudentiComponent implements OnInit {
     );
   }
 
+  obrisibutton1(s: any) {
+    //kompletan objekat "s" se salje kroz body... post ima 3 parametra
+    this.httpKlijent.post(`${MojConfig.adresa_servera}/Student/Obrisi1`, s, MojConfig.http_opcije()).subscribe(x=>{
+      this.fetchStudenti();
+    });
+  }
+
+  obrisibutton2(s: any) {
+    //int student id se salje kroz url
+    this.httpKlijent.post(`${MojConfig.adresa_servera}/Student/Obrisi2/${s.id}`, MojConfig.http_opcije()).subscribe(x=>{
+      this.fetchStudenti();
+    });
+  }
 
   novi_student_dugme() {
     this.odabranistudent = {
@@ -75,8 +88,13 @@ export class StudentiComponent implements OnInit {
   }
 
   otvori_maticnuknjigu(s: any) {
-    //otvara komponentu student-maticnaknjiga te proslijeđuje id odabranog studenta
+    //
     this.router.navigate(['/student-maticnaknjiga', s.id]);
   }
 
+  snimi_dugme() {
+    this.httpKlijent.post(`${MojConfig.adresa_servera}/Student/Snimi`, this.odabranistudent, MojConfig.http_opcije()).subscribe(x=>{
+      this.fetchStudenti();
+    });
+  }
 }

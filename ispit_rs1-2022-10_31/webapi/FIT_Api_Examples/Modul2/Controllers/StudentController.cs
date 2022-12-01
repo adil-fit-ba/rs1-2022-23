@@ -28,14 +28,23 @@ namespace FIT_Api_Examples.Modul2.Controllers
 
        
         [HttpGet]
-        public ActionResult<List<Student>> GetAll(string ime_prezime)
+        public ActionResult GetAll(string ime_prezime)
         {
             var data = _dbContext.Student
                 .Include(s => s.opstina_rodjenja.drzava)
                 .Where(x => ime_prezime == null || (x.ime + " " + x.prezime).StartsWith(ime_prezime) || (x.prezime + " " + x.ime).StartsWith(ime_prezime))
                 .OrderByDescending(s => s.id)
+                .Select(s=>new 
+                {
+                    imeaaa = s.ime,
+                    aaaa = s.prezime,
+                    
+
+                })
                 .AsQueryable();
-            return data.Take(100).ToList();
+
+
+            return Ok( data.Take(100).ToList());
         }
 
     }
