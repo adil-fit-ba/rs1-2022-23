@@ -14,8 +14,8 @@ declare function porukaError(a: string):any;
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  txtLozinka: any;
-  txtKorisnickoIme: any;
+  txtLozinka="test";
+  txtKorisnickoIme="denis";
 
   constructor(private httpKlijent: HttpClient, private router: Router) {
   }
