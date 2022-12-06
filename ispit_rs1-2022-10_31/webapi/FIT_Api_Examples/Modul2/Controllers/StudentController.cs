@@ -34,13 +34,6 @@ namespace FIT_Api_Examples.Modul2.Controllers
                 .Include(s => s.opstina_rodjenja.drzava)
                 .Where(x => ime_prezime == null || (x.ime + " " + x.prezime).StartsWith(ime_prezime) || (x.prezime + " " + x.ime).StartsWith(ime_prezime))
                 .OrderByDescending(s => s.id)
-                .Select(s=>new 
-                {
-                    imeaaa = s.ime,
-                    aaaa = s.prezime,
-                    
-
-                })
                 .AsQueryable();
 
 
