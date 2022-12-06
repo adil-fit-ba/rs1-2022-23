@@ -13,8 +13,6 @@ declare function porukaError(a: string):any;
 })
 export class StudentMaticnaknjigaComponent implements OnInit {
    studentid: number;
-  novi_upis_godine: any;
-  akademskegodine: any;
   maticnaknjigapodaci: any;
 
   constructor(private httpKlijent: HttpClient, private route: ActivatedRoute) {}
@@ -36,7 +34,6 @@ export class StudentMaticnaknjigaComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.studentid = +params['studentidbroj']; // (+) converts string 'id' to a number
 
-      this.fetchAkademskeGodine();
       this.fetchMaticnaKnjigaDetalji();
 
       //fetch detalji o studentu
@@ -53,23 +50,7 @@ export class StudentMaticnaknjigaComponent implements OnInit {
     });
   }
 
-  fetchAkademskeGodine() {
-    this.httpKlijent.get(MojConfig.adresa_servera+ "/AkademskeGodine/GetAll_ForCmb", MojConfig.http_opcije()).subscribe(x=>{
-      this.akademskegodine = x;
-    });
-  }
 
-  novi_zimski() {
 
-    porukaSuccess("aaa");
 
-    this.novi_upis_godine = {
-      ocjene :0,
-      godina_studija: 1,
-      datum_upisa: new Date(),
-      akademska_godina_id:1,
-      student_id:this.studentid,
-      obnova: false,
-    };
-  }
 }

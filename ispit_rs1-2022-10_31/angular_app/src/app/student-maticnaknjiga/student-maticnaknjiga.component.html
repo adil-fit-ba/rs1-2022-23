@@ -59,49 +59,7 @@
   </tbody>
 </table>
 
-<button class="form-label" (click)="novi_zimski()">Upis u zimski semestar</button>
+<button class="form-label" >Upis u zimski semestar</button>
 </div>
 
 
-<div *ngIf="novi_upis_godine!=null"  class="modal fade show" id="exampleModalLive" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLiveLabel">Novi semestar za </h5>
-        <button type="button" class="btn-close" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <div class="mb-3">
-          <label class="form-label">Datum</label>
-          <input class="form-control" type="date" [(ngModel)]="novi_upis_godine.datum_upisa"  placeholder="Datum">
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Godina studija</label>
-          <input class="form-control" [(ngModel)]="novi_upis_godine.godina_studija" placeholder="Godina studija"/>
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label">Ak godina</label>
-          <select class="form-control"  [(ngModel)]="novi_upis_godine.akademska_godina_id"  >
-              <option *ngFor="let x of akademskegodine" [value]="x.id">{{x.opis}}</option>
-          </select>
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label">Cijena školarine</label>
-          <input class="form-control"  placeholder="Cijena školarine" />
-        </div>
-
-        <div class="mb-3 form-check">
-          <input type="checkbox" class="form-check-input"  placeholder="Obnova godine" />
-          <label class="form-check-label">Obnova godine</label>
-        </div>
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" >Close</button>
-        <button type="button" class="btn btn-primary" >Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
