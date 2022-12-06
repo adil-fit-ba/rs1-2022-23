@@ -33,19 +33,12 @@ export class StudentMaticnaknjigaComponent implements OnInit {
     //preuzima ID studenta iz URL query parametra
     this.route.params.subscribe(params => {
       this.studentid = +params['studentidbroj']; // (+) converts string 'id' to a number
-
       this.fetchMaticnaKnjigaDetalji();
-
-      //fetch detalji o studentu
-        //-- upisani semestri
-        //-- ocjene, uplate itd.
-      //class UpisAkademskaGodina
-      //studentid, akademskaGodinaid, godina_studija, cijena_skolarine, bool obnova, datum_upisazimski
     });
   }
 
   fetchMaticnaKnjigaDetalji() {
-    this.httpKlijent.get(MojConfig.adresa_servera+ "/MaticnaKnjiga/GetByID?studentid="+this.studentid, MojConfig.http_opcije()).subscribe(x=>{
+    this.httpKlijent.get(MojConfig.adresa_servera+ "/MaticnaKnjigaDetalji/GetByID?studentid="+this.studentid, MojConfig.http_opcije()).subscribe(x=>{
       this.maticnaknjigapodaci = x;
     });
   }

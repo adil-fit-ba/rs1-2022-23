@@ -12,18 +12,26 @@
   <div class="mb-3 row">
       <label class="col-sm-2 col-form-label">Student ime</label>
         <div class="col-sm-4">
-      <input class="form-control" >
+      <input class="form-control" disabled [value]="maticnaknjigapodaci.ime">
     </div>
   </div>
 
   <div class="mb-3 row">
       <label class="col-sm-2 col-form-label">Student prezime</label>
         <div class="col-sm-4">
-      <input class="form-control" >
+      <input class="form-control" disabled >
     </div>
   </div>
 
-<table class="table table-bordered">
+  <div class="mb-3 row">
+    <label class="col-sm-2 col-form-label">Suma skolarine</label>
+    <div class="col-sm-4">
+      <input class="form-control" disabled >
+    </div>
+  </div>
+
+
+  <table class="table table-bordered">
   <thead>
   <tr>
     <th>ID</th>
@@ -40,7 +48,7 @@
   </thead>
 
   <tbody>
-  <tr>
+  <tr >
     <td></td>
     <td></td>
     <td></td>

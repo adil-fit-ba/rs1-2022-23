@@ -20,7 +20,7 @@ namespace FIT_Api_Examples.Data
         public DbSet<KorisnickiNalog> KorisnickiNalog{ get; set; }
         public DbSet<Obavijest> Obavijest{ get; set; }
         public DbSet<AkademskaGodina> AkademskaGodina { get; set; }
-        public DbSet<UpisAkGodine> AkGodines { get; set; }
+        public DbSet<UpisAkGodine> UpisAkGodines { get; set; }
 
         public ApplicationDbContext(
             DbContextOptions options) : base(options)
