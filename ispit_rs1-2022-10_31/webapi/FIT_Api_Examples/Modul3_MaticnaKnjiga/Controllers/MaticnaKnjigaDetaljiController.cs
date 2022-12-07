@@ -26,62 +26,6 @@ namespace FIT_Api_Examples.Modul2.Controllers
             this._dbContext = dbContext;
         }
 
-        public class MaticnaKnjigaDetaljiUpisiVM
-        {
-            public DateTime? zimskiSemestarOvjera { get; set; }
-            public DateTime zimskiSemestarUpis { get; set; }
-            public bool obnova { get; set; }
-            public int godinaStudija { get; set; }
-            public string akademskaGodinaOpis { get; set; }
-            public int upisAkGodineID { get; set; }
-            public string evidentiraoKorisnik { get; set; }
-        }
-
-
-        public class MaticnaKnjigaDetaljiVM
-        {
-            public int studentid{ get; set; }
-            public string ime { get; set; }
-            public string prezime { get; set; }
-
-            public List<MaticnaKnjigaDetaljiUpisiVM> AkGodines { get; set; } 
-
-        }
-
-        [HttpGet]
-        public ActionResult<MaticnaKnjigaDetaljiVM> GetByID(int studentid)
-        {
-            if (!HttpContext.GetLoginInfo().isLogiran)
-                return BadRequest("nije logiran");
-
-            var objstudent = _dbContext.Student.Find(studentid);
-            
-
-            var resultvm = new MaticnaKnjigaDetaljiVM
-            {
-                studentid = studentid,
-                prezime = objstudent.prezime,
-                ime = objstudent.ime,
-                AkGodines = _dbContext.UpisAkGodine.Where(s => s.student_id == studentid)
-                    .Select(u =>new MaticnaKnjigaDetaljiUpisiVM
-                    {
-                        upisAkGodineID = u.id,
-                        akademskaGodinaOpis = u.akademskaGodina.opis,
-                        godinaStudija = u.godinastudina,
-                        obnova = u.jelObnova,
-                        zimskiSemestarUpis = u.datumUpisZimski,
-                        zimskiSemestarOvjera = u.datumOvjeraZimski,
-                        evidentiraoKorisnik = u.evidentiraoKorisnik.korisnickoIme
-                        //npr prosjecnaOcjema, Dug, Polozeniispit
-
-                    })
-                    .ToList(),
-                //npr polozeniPredmeti
-                //npr uplate
-            };
-
-            return resultvm;
-        }
 
     }
 }
