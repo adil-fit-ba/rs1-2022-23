@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using FIT_Api_Examples.Data;
 using FIT_Api_Examples.Helper;
 using FIT_Api_Examples.Helper.AutentifikacijaAutorizacija;
@@ -27,5 +28,25 @@ namespace FIT_Api_Examples.Modul2.Controllers
         }
 
 
+        [HttpGet]
+        public ActionResult GetById(int studentid)
+        {
+
+            Student s = _dbContext.Student.Find(studentid);
+
+            List<UpisAkGodine> upisAkGodine= _dbContext.UpisAkGodine
+                .Include(s=>s.akademskaGodina)
+                .Include(s=>s.evidentiraoKorisnik)
+                .Where(s => s.student_id == studentid).ToList();
+
+            float cijenaSkolarine= upisAkGodine.Sum(s => s.cijenaSkolarine);
+
+            return Ok(new
+            {
+                s,
+                upisAkGodine,
+                cijenaSkolarine
+            });
+        }
     }
 }

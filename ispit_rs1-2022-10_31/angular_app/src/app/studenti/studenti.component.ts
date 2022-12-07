@@ -81,7 +81,7 @@ export class StudentiComponent implements OnInit {
   }
 
   novi_student_dugme() {
-    this.odabranistudent =  {
+    this.odabranistudent =   {
       id:0,
       prezime:"",
       ime: this.ime_prezime,
@@ -94,7 +94,7 @@ export class StudentiComponent implements OnInit {
     };
   }
 
-  otvori_maticnuknjigu(s: any) {
+  otvori_maticnuknjigu(s: StudentGetallVM) {
     //
     this.router.navigate(['/student-maticnaknjiga', s.id]);
   }
@@ -102,6 +102,9 @@ export class StudentiComponent implements OnInit {
   snimi_dugme() {
     this.httpKlijent.post(`${MojConfig.adresa_servera}/Student/Snimi`, this.odabranistudent, MojConfig.http_opcije()).subscribe(x=>{
       this.fetchStudenti();
+      this.odabranistudent=null;
     });
   }
+
+
 }

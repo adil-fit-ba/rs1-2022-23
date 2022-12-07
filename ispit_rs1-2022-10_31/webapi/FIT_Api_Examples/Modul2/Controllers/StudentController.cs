@@ -26,7 +26,62 @@ namespace FIT_Api_Examples.Modul2.Controllers
             this._dbContext = dbContext;
         }
 
+        [HttpPost("{id}")]
+        public ActionResult Obrisi2(int id)
+        {
+            Student student = _dbContext.Student.Find(id);
+
+            if (student == null || id == 1)
+                return BadRequest("pogresan ID");
+
+            _dbContext.Remove(student);
+
+            _dbContext.SaveChanges();
+            return Ok(student);
+        }
+
+
+        [HttpPost]
+        public ActionResult Snimi([FromBody] StudentGetAllVM x)
+        {
+            Student student;
+            if (x.id == 0)
+            {
+                student = new Student
+                {
+                    slika_korisnika = Config.SlikeURL + "empty.png",
+                    created_time = DateTime.Now,
+
+                };
+                _dbContext.Add(student);
+            }
+            else
+            {
+                student = _dbContext.Student.FirstOrDefault(s => s.id == x.id);
+
+            }
        
+
+            if (student == null)
+                return BadRequest("pogresan ID");
+
+            student.ime = x.ime.RemoveTags();
+            student.prezime = x.prezime.RemoveTags();
+            student.opstina_rodjenja_id = x.opstina_rodjenja_id;
+
+            _dbContext.SaveChanges();
+
+            if (student.broj_indeksa == null)
+            {
+                student.broj_indeksa = "IB" + x.id;
+                student.korisnickoIme = x.broj_indeksa;
+                student.lozinka = TokenGenerator.Generate(5);
+                _dbContext.SaveChanges();
+            }
+
+            return Ok();
+        }
+
         [HttpGet]
         public ActionResult GetAll(string ime_prezime)
         {
