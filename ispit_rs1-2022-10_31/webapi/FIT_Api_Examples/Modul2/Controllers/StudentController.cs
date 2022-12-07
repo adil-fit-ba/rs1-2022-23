@@ -31,21 +31,33 @@ namespace FIT_Api_Examples.Modul2.Controllers
         public ActionResult GetAll(string ime_prezime)
         {
             var data = _dbContext.Student
-                .Include(s => s.opstina_rodjenja.drzava)
                 .Where(x => ime_prezime == null || (x.ime + " " + x.prezime).StartsWith(ime_prezime) || (x.prezime + " " + x.ime).StartsWith(ime_prezime))
                 .OrderByDescending(s => s.id)
-                .Select(s=>new 
+                .Take(100)
+                .Select(s => new StudentGetAllVM()
                 {
-                    imeaaa = s.ime,
-                    aaaa = s.prezime,
-                    
-
+                    id = s.id,
+                    ime = s.ime,
+                    prezime = s.prezime,
+                    broj_indeksa = s.broj_indeksa,
+                    opstina_rodjenja_opis = s.opstina_rodjenja.description,
+                    drzava_rodjenja_opis = s.opstina_rodjenja.drzava.naziv,
+                    opstina_rodjenja_id = s.opstina_rodjenja_id,
+                    vrijeme_dodavanja = s.created_time.ToString("dd.MM.yyyy"),
+                    slika_korisnika = s.slika_korisnika,
                 })
-                .AsQueryable();
+                .ToList();
 
 
-            return Ok( data.Take(100).ToList());
+            return Ok(data);
         }
+        //povratni tip je entity klasa
+        //nedostatak: ne može dodati izračunate kolone koje nema u tabeli,
+        //nedostatak: treba dodavati include
+        //prednost: brže kodiranje
+
+        //povratni tip je VM ili anonimna klasa
+
 
     }
 }

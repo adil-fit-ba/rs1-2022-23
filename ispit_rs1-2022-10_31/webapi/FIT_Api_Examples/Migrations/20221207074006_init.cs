@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FIT_Api_Examples.Migrations
 {
-    public partial class aa : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -71,7 +71,7 @@ namespace FIT_Api_Examples.Migrations
                         column: x => x.drzava_id,
                         principalTable: "Drzava",
                         principalColumn: "id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -122,7 +122,7 @@ namespace FIT_Api_Examples.Migrations
                         column: x => x.KorisnickiNalogId,
                         principalTable: "KorisnickiNalog",
                         principalColumn: "id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -165,7 +165,7 @@ namespace FIT_Api_Examples.Migrations
                         column: x => x.evidentiraoKorisnikID,
                         principalTable: "KorisnickiNalog",
                         principalColumn: "id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Obavijest_KorisnickiNalog_izmijenioKorisnikID",
                         column: x => x.izmijenioKorisnikID,
@@ -192,7 +192,7 @@ namespace FIT_Api_Examples.Migrations
                         column: x => x.PredmetID,
                         principalTable: "Predmet",
                         principalColumn: "ID",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -241,13 +241,13 @@ namespace FIT_Api_Examples.Migrations
                         column: x => x.IspitID,
                         principalTable: "Ispit",
                         principalColumn: "ID",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_PrijavaIspita_Student_StudentID",
                         column: x => x.StudentID,
                         principalTable: "Student",
                         principalColumn: "id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(

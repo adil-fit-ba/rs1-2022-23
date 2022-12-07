@@ -7,8 +7,9 @@
         public string prezime { get; set; }
         public int? opstina_rodjenja_id { get; set; }
         public string opstina_rodjenja_opis { get; set; }
-        public int prosjecnaOcjena { get; set; }
-        public int brojPolozenihPredmta { get; set; }
-        public string datum_dodavanja { get; set; }
+        public string broj_indeksa { get; set; }
+        public string drzava_rodjenja_opis { get; set; }
+        public string vrijeme_dodavanja { get; set; }
+        public string slika_korisnika { get; set; }
     }
 }
