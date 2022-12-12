@@ -32,21 +32,35 @@ namespace FIT_Api_Examples.Modul2.Controllers
         public ActionResult GetById(int studentid)
         {
 
-            Student s = _dbContext.Student.Find(studentid);
+            var upisAkGodine = _dbContext.UpisAkGodine
+                .Where(s => s.student_id == studentid)
+                .Select(a=>new {
+                    a.id,
+                    akademska_godina_opis = a.akademskaGodina.opis,
+                    a.godinastudina,
+                    a.jelObnova,
+                    a.datumUpisZimski,
+                    a.datumOvjeraZimski,
+                    a.cijenaSkolarine,
+                    evidentirao_korisnik = a.evidentiraoKorisnik.korisnickoIme
+                })
+                ;
 
-            List<UpisAkGodine> upisAkGodine= _dbContext.UpisAkGodine
-                .Include(s=>s.akademskaGodina)
-                .Include(s=>s.evidentiraoKorisnik)
-                .Where(s => s.student_id == studentid).ToList();
+            var povratnavr = _dbContext.Student.Where(s=>s.id==studentid)
+                
+                .Select(s=>new 
+                {
+                    student_id=s.id,
+                    ime=s.ime,
+                    prezime=s.prezime,
+                    listaUpisi = upisAkGodine.ToList(),
+                    cijenaSkolarine = upisAkGodine.Sum(s => s.cijenaSkolarine)
 
-            float cijenaSkolarine= upisAkGodine.Sum(s => s.cijenaSkolarine);
+                })
+                .FirstOrDefault();
 
-            return Ok(new
-            {
-                s,
-                upisAkGodine,
-                cijenaSkolarine
-            });
+
+            return Ok(povratnavr);
         }
     }
 }

@@ -3,6 +3,7 @@ import {ActivatedRoute} from "@angular/router";
 import {MojConfig} from "../moj-config";
 import {HttpClient} from "@angular/common/http";
 import {StudentGetallVM} from "../studenti/student-getall-vm";
+import {MaticnaKnjigaVM} from "./maticna-knjiga-vm";
 
 declare function porukaSuccess(a: string):any;
 declare function porukaError(a: string):any;
@@ -14,7 +15,7 @@ declare function porukaError(a: string):any;
 })
 export class StudentMaticnaknjigaComponent implements OnInit {
    studentid: number;
-   podaci: any;
+   podaci:MaticnaKnjigaVM;
 
   constructor(private httpKlijent: HttpClient, private route: ActivatedRoute) {}
 
@@ -47,7 +48,7 @@ export class StudentMaticnaknjigaComponent implements OnInit {
 
 
   private fetchMaticnaKnjigaDetalji() {
-    this.httpKlijent.get(MojConfig.adresa_servera+ "/MaticnaKnjigaDetalji/GetById?studentid="+this.studentid, MojConfig.http_opcije()).subscribe((x:any)=>{
+    this.httpKlijent.get<MaticnaKnjigaVM>(MojConfig.adresa_servera+ "/MaticnaKnjigaDetalji/GetById?studentid="+this.studentid, MojConfig.http_opcije()).subscribe((x:any)=>{
       this.podaci = x
     });
   }

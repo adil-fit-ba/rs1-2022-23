@@ -12,14 +12,14 @@
   <div class="mb-3 row">
       <label class="col-sm-2 col-form-label">Student ime</label>
         <div class="col-sm-4">
-      <input class="form-control" [value]="podaci.s.ime">
+      <input class="form-control" [value]="podaci.ime">
     </div>
   </div>
 
   <div class="mb-3 row">
       <label class="col-sm-2 col-form-label">Student prezime</label>
         <div class="col-sm-4">
-      <input class="form-control"  [value]="podaci.s.prezime" >
+      <input class="form-control"  [value]="podaci.prezime" >
     </div>
   </div>
 
@@ -40,17 +40,17 @@
   </thead>
 
   <tbody>
-  <tr *ngFor="let x of this.podaci.upisAkGodine">
+  <tr *ngFor="let x of this.podaci.listaUpisi">
     <td>{{x.id}}</td>
-    <td>{{x.akademskaGodina.opis}}</td>
-    <td>{{x.godinastudina}}</td>
+    <td>{{x.akademska_godina_opis}}</td>
+      <td>{{x.godinastudina}}</td>
     <td>{{x.jelObnova?"DA":"NE"}}</td>
     <td>
       <input [value]="x.datumUpisZimski" disabled> |
       <input [value]="x.datumOvjeraZimski" disabled>
     </td>
 
-    <td>{{x.evidentiraoKorisnik.korisnickoIme}}</td>
+    <td>{{x.evidentirao_korisnik}}</td>
     <td>
       <a class="btn btn-link">Ovjeri zimski semestar </a> <br>
 
