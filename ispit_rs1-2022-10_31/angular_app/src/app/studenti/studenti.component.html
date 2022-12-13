@@ -30,7 +30,7 @@
     <td>{{s.drzava_rodjenja_opis}}</td>
     <td>{{s.opstina_rodjenja_opis}}</td>
     <td>{{s.vrijeme_dodavanja}}</td>
-    <td><img class="profilna-slika" src="{{getslika(s)}}"></td>
+    <td><img class="profilna-slika" ></td>
     <td>
       <button (click)="obrisibutton2(s)" >Obrisi</button>
       <button (click)="odabranistudent=s">Uredi</button>
@@ -69,8 +69,8 @@
 
         <div class="mb-3">
           <label class="form-label">Nova slika</label>
-          <input class="form-control" id="slika-input" type="file" (change)="generisi_preview_slike()" />
-          <img id="slika-preview" [src]="odabranistudent.slika_nova_base64" style="width: 100%; height: 200px">
+          <input class="form-control" id="slika-input" type="file"  />
+          <img id="slika-preview"  style="width: 100%; height: 200px">
         </div>
       </div>
       <div class="modal-footer">

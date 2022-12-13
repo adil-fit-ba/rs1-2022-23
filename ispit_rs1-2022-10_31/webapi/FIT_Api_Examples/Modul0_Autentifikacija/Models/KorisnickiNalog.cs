@@ -16,8 +16,6 @@ namespace FIT_Api_Examples.Modul0_Autentifikacija.Models
         public string korisnickoIme { get; set; }
         [JsonIgnore]
         public string lozinka { get; set; }
-        public byte[] slika_korisnika_bytes { get; set; }
-        public string slika_korisnika_fs { get; set; }
 
         [JsonIgnore]
         public Student student => this as Student;

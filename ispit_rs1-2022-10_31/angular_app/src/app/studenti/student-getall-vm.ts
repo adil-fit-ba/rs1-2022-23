@@ -7,5 +7,4 @@ export class StudentGetallVM {
   broj_indeksa: string;
   drzava_rodjenja_opis: string;
   vrijeme_dodavanja: string;
-  slika_nova_base64: string;
 }
