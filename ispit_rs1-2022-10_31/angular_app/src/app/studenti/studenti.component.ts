@@ -121,13 +121,9 @@ export class StudentiComponent implements OnInit {
       let this2 = this;
 
       reader.onload = function () {
-
         let base64string = reader.result;
         this2.odabranistudent.slika_nova_base64 = base64string.toString();
-        // @ts-ignore
-        document.getElementById("slika-preview").setAttribute("src", base64string);
       }
-
       reader.readAsDataURL(file);
     }
 
