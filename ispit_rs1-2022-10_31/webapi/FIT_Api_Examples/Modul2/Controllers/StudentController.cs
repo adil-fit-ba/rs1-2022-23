@@ -70,6 +70,13 @@ namespace FIT_Api_Examples.Modul2.Controllers
             student.opstina_rodjenja_id = x.opstina_rodjenja_id;
             _dbContext.SaveChanges();
 
+            if (!string.IsNullOrEmpty(x.slika_nova_base64))
+            {
+                //u JS-u ili TS-u treba dodati sliku u atribut slika_nova_base64 objekta
+                byte[] bajtovi_slike = x.slika_nova_base64.parseBase64();
+
+                Fajlovi.Snimi(bajtovi_slike, Config.SlikeFolder + student.id + ".png");
+            }
          
             
             if (student.broj_indeksa == null)
@@ -108,6 +115,21 @@ namespace FIT_Api_Examples.Modul2.Controllers
             return Ok(data);
         }
 
+        [HttpGet("{korisnikid}")]
+        public ActionResult GetSlikaKorisnika(int korisnikid)
+        {
+            //if (!HttpContext.GetLoginInfo().isLogiran)
+            //    return BadRequest("nije logiran");
+
+            byte[] bajtovi = Fajlovi.Ucitaj(Config.SlikeFolder + korisnikid + ".png");
+
+            if (bajtovi == null)
+            {
+                bajtovi = Fajlovi.Ucitaj(Config.SlikeFolder + "empty.png");
+            }
+
+            return File(bajtovi, "image/png");
+        }
       
 
     }
