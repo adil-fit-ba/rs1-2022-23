@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using FIT_Api_Examples.Data;
 using FIT_Api_Examples.Helper;
 using FIT_Api_Examples.Helper.AutentifikacijaAutorizacija;
@@ -49,7 +50,6 @@ namespace FIT_Api_Examples.Modul2.Controllers
             {
                 student = new Student
                 {
-                    slika_korisnika = Config.SlikeURL + "empty.png",
                     created_time = DateTime.Now,
 
                 };
@@ -68,9 +68,19 @@ namespace FIT_Api_Examples.Modul2.Controllers
             student.ime = x.ime.RemoveTags();
             student.prezime = x.prezime.RemoveTags();
             student.opstina_rodjenja_id = x.opstina_rodjenja_id;
-
             _dbContext.SaveChanges();
 
+            if (!string.IsNullOrEmpty(x.slika_korisnika_nova_base64))
+            {
+                byte[] nova_slika = x.slika_korisnika_nova_base64.parseBase64();
+                //varijanta 1 - db
+                student.slika_korisnika_bytes = nova_slika;
+                _dbContext.SaveChanges();
+
+                //varijanta 2 - filesystem
+                Fajlovi.Snimi(nova_slika, Config.SlikeFolder + student.id + ".png");
+            }
+            
             if (student.broj_indeksa == null)
             {
                 student.broj_indeksa = "IB" + x.id;
@@ -99,20 +109,32 @@ namespace FIT_Api_Examples.Modul2.Controllers
                     drzava_rodjenja_opis = s.opstina_rodjenja.drzava.naziv,
                     opstina_rodjenja_id = s.opstina_rodjenja_id,
                     vrijeme_dodavanja = s.created_time.ToString("dd.MM.yyyy"),
-                    slika_korisnika = s.slika_korisnika,
+
                 })
                 .ToList();
-
+            //nemojte koristiti entity klase -jer bi onda čitao byte[] za svakog studenta.
 
             return Ok(data);
         }
-        //povratni tip je entity klasa
-        //nedostatak: ne može dodati izračunate kolone koje nema u tabeli,
-        //nedostatak: treba dodavati include
-        //prednost: brže kodiranje
 
-        //povratni tip je VM ili anonimna klasa
+        [HttpGet("{korisnikid}")]
+        public ActionResult GetSlikaKorisnika(int korisnikid)
+        {
+            KorisnickiNalog korisnik = _dbContext.KorisnickiNalog.Find(korisnikid);
 
+            //1 slika filesystem
+            byte[] slika = Fajlovi.Ucitaj(Config.SlikeFolder + korisnik.id + ".png");
+
+            //2 slika db
+            //byte[] slika = korisnik.slika_korisnika_bytes;
+
+            if (slika == null || slika.Length == 0)
+            {
+                slika = Fajlovi.Ucitaj(Config.SlikeFolder + "empty.png");
+            }
+
+            return File(slika, "image/png");
+        }
 
     }
 }

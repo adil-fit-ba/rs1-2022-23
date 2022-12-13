@@ -107,4 +107,7 @@ export class StudentiComponent implements OnInit {
   }
 
 
+  getslika(s: any) {
+    return `${MojConfig.adresa_servera}/Student/GetSlikaKorisnika/${s.id}`;
+  }
 }

@@ -10,6 +10,6 @@
         public string broj_indeksa { get; set; }
         public string drzava_rodjenja_opis { get; set; }
         public string vrijeme_dodavanja { get; set; }
-        public string slika_korisnika { get; set; }
+        public string slika_korisnika_nova_base64 { get; set; }
     }
 }

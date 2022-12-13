@@ -30,7 +30,7 @@
     <td>{{s.drzava_rodjenja_opis}}</td>
     <td>{{s.opstina_rodjenja_opis}}</td>
     <td>{{s.vrijeme_dodavanja}}</td>
-    <td><img class="profilna-slika" src="{{s.slika_korisnika}}"></td>
+    <td><img class="profilna-slika" src="{{getslika(s)}}"></td>
     <td>
       <button (click)="obrisibutton2(s)" >Obrisi</button>
       <button (click)="odabranistudent=s">Uredi</button>

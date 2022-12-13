@@ -15,6 +15,7 @@ namespace FIT_Api_Examples.Modul3_MaticnaKnjiga.Models
         public int? opstina_rodjenja_id { get; set; }
         public Opstina opstina_rodjenja { get; set; }
         public DateTime created_time { get; set; }
+       
   
     }
 }
