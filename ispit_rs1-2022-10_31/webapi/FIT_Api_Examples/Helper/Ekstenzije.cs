@@ -16,7 +16,10 @@ namespace FIT_Api_Examples.Helper
 
         public static byte[] parseBase64(this string base64)
         {
-            return Convert.FromBase64String(base64);
+            if (base64.Contains(","))
+                base64 = base64.Split(',')[1];
+
+            return  Convert.FromBase64String(base64);
         }
 
         public static string RemoveTags(this string input)

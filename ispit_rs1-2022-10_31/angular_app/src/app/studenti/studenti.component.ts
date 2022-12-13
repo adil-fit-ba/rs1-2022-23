@@ -90,7 +90,7 @@ export class StudentiComponent implements OnInit {
       vrijeme_dodavanja:"",
       drzava_rodjenja_opis:"",
       opstina_rodjenja_id:5,
-      slika_korisnika : ""
+      slika_nova_base64 : ""
     };
   }
 
@@ -100,14 +100,36 @@ export class StudentiComponent implements OnInit {
   }
 
   snimi_dugme() {
+
     this.httpKlijent.post(`${MojConfig.adresa_servera}/Student/Snimi`, this.odabranistudent, MojConfig.http_opcije()).subscribe(x=>{
       this.fetchStudenti();
       this.odabranistudent=null;
     });
   }
-
-
   getslika(s: any) {
-    return ``;
+    return MojConfig.adresa_servera + "/Student/GetSlikaKorisnika/" + s.id;
+  }
+
+  generisi_preview_slike() {
+
+    // @ts-ignore
+    var file = document.getElementById("slika-input").files[0];
+
+    if (file) {
+      var reader = new FileReader();
+
+      let this2 = this;
+
+      reader.onload = function () {
+
+        let base64string = reader.result;
+        this2.odabranistudent.slika_nova_base64 = base64string.toString();
+        // @ts-ignore
+        document.getElementById("slika-preview").setAttribute("src", base64string);
+      }
+
+      reader.readAsDataURL(file);
+    }
+
   }
 }
