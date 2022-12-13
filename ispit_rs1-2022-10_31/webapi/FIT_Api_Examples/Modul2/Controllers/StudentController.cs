@@ -70,16 +70,7 @@ namespace FIT_Api_Examples.Modul2.Controllers
             student.opstina_rodjenja_id = x.opstina_rodjenja_id;
             _dbContext.SaveChanges();
 
-            if (!string.IsNullOrEmpty(x.slika_korisnika_nova_base64))
-            {
-                byte[] nova_slika = x.slika_korisnika_nova_base64.parseBase64();
-                //varijanta 1 - db
-                student.slika_korisnika_bytes = nova_slika;
-                _dbContext.SaveChanges();
-
-                //varijanta 2 - filesystem
-                Fajlovi.Snimi(nova_slika, Config.SlikeFolder + student.id + ".png");
-            }
+         
             
             if (student.broj_indeksa == null)
             {
@@ -117,24 +108,7 @@ namespace FIT_Api_Examples.Modul2.Controllers
             return Ok(data);
         }
 
-        [HttpGet("{korisnikid}")]
-        public ActionResult GetSlikaKorisnika(int korisnikid)
-        {
-            KorisnickiNalog korisnik = _dbContext.KorisnickiNalog.Find(korisnikid);
-
-            //1 slika filesystem
-            byte[] slika = Fajlovi.Ucitaj(Config.SlikeFolder + korisnik.id + ".png");
-
-            //2 slika db
-            //byte[] slika = korisnik.slika_korisnika_bytes;
-
-            if (slika == null || slika.Length == 0)
-            {
-                slika = Fajlovi.Ucitaj(Config.SlikeFolder + "empty.png");
-            }
-
-            return File(slika, "image/png");
-        }
+      
 
     }
 }
