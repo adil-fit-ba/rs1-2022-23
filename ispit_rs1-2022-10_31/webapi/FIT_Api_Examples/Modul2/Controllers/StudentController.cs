@@ -114,7 +114,7 @@ namespace FIT_Api_Examples.Modul2.Controllers
             //if (!HttpContext.GetLoginInfo().isLogiran)
             //    return BadRequest("nije logiran");
 
-            byte[] bajtovi = Fajlovi.Ucitaj(Config.SlikeFolder + korisnikid + ".png");
+            byte[] bajtovi = _dbContext.KorisnickiNalog.Find(korisnikid).slika_korisnika_bytes;
 
             if (bajtovi == null)
             {
