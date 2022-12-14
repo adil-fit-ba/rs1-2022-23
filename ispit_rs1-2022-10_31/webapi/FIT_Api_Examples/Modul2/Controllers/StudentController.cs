@@ -111,10 +111,17 @@ namespace FIT_Api_Examples.Modul2.Controllers
                     drzava_rodjenja_opis = s.opstina_rodjenja.drzava.naziv,
                     opstina_rodjenja_id = s.opstina_rodjenja_id,
                     vrijeme_dodavanja = s.created_time.ToString("dd.MM.yyyy"),
-                   // slika_korisnika_postojeca = s.slika_korisnika_bajtovi,
+                    slika_korisnika_postojeca = s.slika_korisnika_bajtovi,
                 })
                 .ToList();
             //nemojte koristiti entity klase -jer bi onda čitao byte[] za svakog studenta.
+            data.ForEach(s=>
+            {
+                if (s.slika_korisnika_postojeca == null)
+                {
+                    s.slika_korisnika_postojeca = Fajlovi.Ucitaj("wwwroot/profile_images/empty.png");
+                }
+            });
 
             return Ok(data);
         }

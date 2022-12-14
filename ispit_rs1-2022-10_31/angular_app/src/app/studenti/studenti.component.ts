@@ -90,7 +90,8 @@ export class StudentiComponent implements OnInit {
       vrijeme_dodavanja:"",
       drzava_rodjenja_opis:"",
       opstina_rodjenja_id:5,
-      slika_korisnika_nova_base64:""
+      slika_korisnika_nova_base64:"",
+      slika_korisnika_postojeca:""
     };
   }
 
@@ -113,8 +114,10 @@ export class StudentiComponent implements OnInit {
 
 
   get_slika(s: StudentGetallVM) {
-    let r = this.randomIntFromInterval(1, 6);
-    return `${MojConfig.adresa_servera}/Student/GetSlikaFS/${s.id}?a=${r}`;
+   // let r = this.randomIntFromInterval(1, 6);
+  //  return `${MojConfig.adresa_servera}/Student/GetSlikaFS/${s.id}?a=${r}`;
+
+    return "data:image/png;base64,"+ s.slika_korisnika_postojeca;
   }
 
   generisi_preview() {
