@@ -108,21 +108,6 @@ namespace FIT_Api_Examples.Modul2.Controllers
             return Ok(data);
         }
 
-        [HttpGet("{korisnikid}")]
-        public ActionResult GetSlikaKorisnika(int korisnikid)
-        {
-            //if (!HttpContext.GetLoginInfo().isLogiran)
-            //    return BadRequest("nije logiran");
-
-            byte[] bajtovi = _dbContext.KorisnickiNalog.Find(korisnikid).slika_korisnika_bytes;
-
-            if (bajtovi == null)
-            {
-                bajtovi = Fajlovi.Ucitaj(Config.SlikeFolder + "empty.png");
-            }
-
-            return File(bajtovi, "image/png");
-        }
       
 
     }
