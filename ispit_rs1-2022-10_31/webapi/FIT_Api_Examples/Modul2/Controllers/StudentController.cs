@@ -68,7 +68,17 @@ namespace FIT_Api_Examples.Modul2.Controllers
             student.ime = x.ime.RemoveTags();
             student.prezime = x.prezime.RemoveTags();
             student.opstina_rodjenja_id = x.opstina_rodjenja_id;
-            student.slika_korisnika_bajtovi = x.slika_korisnika_nova_base64.ParsirajBase64();
+
+            if (x.slika_korisnika_nova_base64 != "")
+            {
+                //slika se snima u db
+                byte[] slika_bajtovi = x.slika_korisnika_nova_base64.ParsirajBase64();
+                student.slika_korisnika_bajtovi = slika_bajtovi;
+
+                //slika se snima na File System
+                Fajlovi.Snimi(slika_bajtovi, "slike_korisnika/" + student.id + ".png");
+            }
+           
             _dbContext.SaveChanges();
 
          
@@ -110,9 +120,22 @@ namespace FIT_Api_Examples.Modul2.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult GetSlika(int id)
+        public ActionResult GetSlikaDB(int id)
         {
             byte[] bajtovi_slike = _dbContext.Student.Find(id).slika_korisnika_bajtovi;
+
+            if (bajtovi_slike == null)
+            {
+                bajtovi_slike = Fajlovi.Ucitaj("wwwroot/profile_images/empty.png");
+            }
+
+            return File(bajtovi_slike, "image/png");
+        }
+
+        [HttpGet("{id}")]
+        public ActionResult GetSlikaFS(int id)
+        {
+            byte[] bajtovi_slike = Fajlovi.Ucitaj("slike_korisnika/" + id + ".png");
 
             if (bajtovi_slike == null)
             {

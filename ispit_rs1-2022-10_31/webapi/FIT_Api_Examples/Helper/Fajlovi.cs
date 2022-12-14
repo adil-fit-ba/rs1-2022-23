@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace FIT_Api_Examples.Helper
 {
@@ -14,6 +15,16 @@ namespace FIT_Api_Examples.Helper
             {
                 return null;
             }
+        }
+
+        public static void Snimi(byte[] bajtoviBytes, string path)
+        {
+            var directoryName = Path.GetDirectoryName(path);
+            System.IO.Directory.CreateDirectory(directoryName);
+
+            using var fs = new FileStream(path, FileMode.Create, FileAccess.Write);
+            fs.Write(bajtoviBytes, 0, bajtoviBytes.Length);
+            fs.Close();
         }
     }
 }

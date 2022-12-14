@@ -113,8 +113,8 @@ export class StudentiComponent implements OnInit {
 
 
   get_slika(s: StudentGetallVM) {
-    let r = this.randomIntFromInterval(1, 1000);
-    return `${MojConfig.adresa_servera}/Student/GetSlika/${s.id}?a=${r}`;
+    let r = this.randomIntFromInterval(1, 6);
+    return `${MojConfig.adresa_servera}/Student/GetSlikaFS/${s.id}?a=${r}`;
   }
 
   generisi_preview() {
