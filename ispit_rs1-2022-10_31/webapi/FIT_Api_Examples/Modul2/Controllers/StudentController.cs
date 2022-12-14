@@ -68,6 +68,7 @@ namespace FIT_Api_Examples.Modul2.Controllers
             student.ime = x.ime.RemoveTags();
             student.prezime = x.prezime.RemoveTags();
             student.opstina_rodjenja_id = x.opstina_rodjenja_id;
+            student.slika_korisnika_bajtovi = x.slika_korisnika_nova_base64.ParsirajBase64();
             _dbContext.SaveChanges();
 
          
@@ -87,9 +88,12 @@ namespace FIT_Api_Examples.Modul2.Controllers
         public ActionResult GetAll(string ime_prezime)
         {
             var data = _dbContext.Student
+                .Include(s=>s.opstina_rodjenja.drzava)
                 .Where(x => ime_prezime == null || (x.ime + " " + x.prezime).StartsWith(ime_prezime) || (x.prezime + " " + x.ime).StartsWith(ime_prezime))
                 .OrderByDescending(s => s.id)
-                .Take(100)
+                .ToList();
+
+           var data2=    data
                 .Select(s => new StudentGetAllVM()
                 {
                     id = s.id,
@@ -100,12 +104,13 @@ namespace FIT_Api_Examples.Modul2.Controllers
                     drzava_rodjenja_opis = s.opstina_rodjenja.drzava.naziv,
                     opstina_rodjenja_id = s.opstina_rodjenja_id,
                     vrijeme_dodavanja = s.created_time.ToString("dd.MM.yyyy"),
-
+                    slika_korisnika_nova_bajtovi = s.slika_korisnika_bajtovi,
+                    slika_korisnika_nova_base64 = s.slika_korisnika_bajtovi?.ToBase64(),
                 })
                 .ToList();
             //nemojte koristiti entity klase -jer bi onda čitao byte[] za svakog studenta.
 
-            return Ok(data);
+            return Ok(data2);
         }
 
       

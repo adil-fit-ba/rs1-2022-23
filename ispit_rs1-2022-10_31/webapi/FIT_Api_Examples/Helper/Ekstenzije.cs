@@ -20,5 +20,15 @@ namespace FIT_Api_Examples.Helper
         {
             return list.OrderBy(arg => Guid.NewGuid()).Take(elementsCount).ToList();
         }
+
+        public static byte[] ParsirajBase64(this string base64string)
+        {
+            return System.Convert.FromBase64String(base64string);
+        }
+
+        public static string ToBase64(this byte[] bajtovi)
+        {
+            return System.Convert.ToBase64String(bajtovi);
+        }
     }
 }
