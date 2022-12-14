@@ -90,6 +90,7 @@ export class StudentiComponent implements OnInit {
       vrijeme_dodavanja:"",
       drzava_rodjenja_opis:"",
       opstina_rodjenja_id:5,
+      slika_korisnika_nova_base64:""
     };
   }
 
@@ -106,6 +107,28 @@ export class StudentiComponent implements OnInit {
     });
   }
 
+  randomIntFromInterval(min:number, max:number) { // min and max included
+    return Math.floor(Math.random() * (max - min + 1) + min)
+  }
 
+
+  get_slika(s: StudentGetallVM) {
+    let r = this.randomIntFromInterval(1, 1000);
+    return `${MojConfig.adresa_servera}/Student/GetSlika/${s.id}?a=${r}`;
+  }
+
+  generisi_preview() {
+    // @ts-ignore
+    var file = document.getElementById("slika-input").files[0];
+    if (file) {
+      var reader = new FileReader();
+      let this2=this;
+      reader.onload = function () {
+        this2.odabranistudent.slika_korisnika_nova_base64 = reader.result.toString();
+      }
+
+      reader.readAsDataURL(file);
+    }
+  }
 
 }

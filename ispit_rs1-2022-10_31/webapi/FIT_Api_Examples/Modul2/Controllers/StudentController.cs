@@ -91,9 +91,6 @@ namespace FIT_Api_Examples.Modul2.Controllers
                 .Include(s=>s.opstina_rodjenja.drzava)
                 .Where(x => ime_prezime == null || (x.ime + " " + x.prezime).StartsWith(ime_prezime) || (x.prezime + " " + x.ime).StartsWith(ime_prezime))
                 .OrderByDescending(s => s.id)
-                .ToList();
-
-           var data2=    data
                 .Select(s => new StudentGetAllVM()
                 {
                     id = s.id,
@@ -104,16 +101,26 @@ namespace FIT_Api_Examples.Modul2.Controllers
                     drzava_rodjenja_opis = s.opstina_rodjenja.drzava.naziv,
                     opstina_rodjenja_id = s.opstina_rodjenja_id,
                     vrijeme_dodavanja = s.created_time.ToString("dd.MM.yyyy"),
-                    slika_korisnika_nova_bajtovi = s.slika_korisnika_bajtovi,
-                    slika_korisnika_nova_base64 = s.slika_korisnika_bajtovi?.ToBase64(),
+                   // slika_korisnika_postojeca = s.slika_korisnika_bajtovi,
                 })
                 .ToList();
             //nemojte koristiti entity klase -jer bi onda čitao byte[] za svakog studenta.
 
-            return Ok(data2);
+            return Ok(data);
         }
 
-      
+        [HttpGet("{id}")]
+        public ActionResult GetSlika(int id)
+        {
+            byte[] bajtovi_slike = _dbContext.Student.Find(id).slika_korisnika_bajtovi;
+
+            if (bajtovi_slike == null)
+            {
+                bajtovi_slike = Fajlovi.Ucitaj("wwwroot/profile_images/empty.png");
+            }
+
+            return File(bajtovi_slike, "image/png");
+        }
 
     }
 }
