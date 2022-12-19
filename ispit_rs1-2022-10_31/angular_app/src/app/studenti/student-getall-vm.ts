@@ -8,5 +8,6 @@ export class StudentGetallVM {
   drzava_rodjenja_opis: string;
   vrijeme_dodavanja: string;
   slika_korisnika_nova_base64: string;
-  slika_korisnika_postojeca: string;
+  slika_korisnika_postojeca_base64_DB: string;
+  slika_korisnika_postojeca_base64_FS: string;
 }

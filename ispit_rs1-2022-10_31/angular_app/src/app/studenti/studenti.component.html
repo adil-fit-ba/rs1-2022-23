@@ -18,7 +18,11 @@
     <th>Drzava rođenja</th>
     <th>Opstina rođenja</th>
     <th>Datum dodavanja</th>
-    <th>Profilna slika</th>
+    <th>Profilna slika base64_DB</th>
+    <th>Profilna slika novi_request_DB</th>
+
+    <th>Profilna slika base64_FS</th>
+    <th>Profilna slika novi_request_FS</th>
     <th>Akcija</th>
   </tr>
   <tbody>
@@ -30,7 +34,12 @@
     <td>{{s.drzava_rodjenja_opis}}</td>
     <td>{{s.opstina_rodjenja_opis}}</td>
     <td>{{s.vrijeme_dodavanja}}</td>
-    <td><img class="profilna-slika" src="{{get_slika(s)}}" ></td>
+    <td><img class="profilna-slika" src="{{get_slika_base64_DB(s)}}" ></td>
+    <td><img class="profilna-slika" src="{{get_slika_novi_request_DB(s)}}" ></td>
+
+    <td><img class="profilna-slika" src="{{get_slika_base64_FS(s)}}" ></td>
+    <td><img class="profilna-slika" src="{{get_slika_novi_request_FS(s)}}" ></td>
+
     <td>
       <button (click)="obrisibutton2(s)" >Obrisi</button>
       <button (click)="odabranistudent=s">Uredi</button>
@@ -69,7 +78,7 @@
 
         <div class="mb-3">
           <label class="form-label">Stara slika</label>
-          <img style="display:block;max-width: 100%; height: 200px" src="{{get_slika(odabranistudent)}}">
+          <img style="display:block;max-width: 100%; height: 200px" src="{{get_slika_base64_FS(odabranistudent)}}">
         </div>
 
         <div class="mb-3">

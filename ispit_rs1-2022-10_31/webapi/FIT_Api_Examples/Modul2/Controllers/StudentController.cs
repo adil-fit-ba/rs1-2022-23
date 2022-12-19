@@ -111,16 +111,17 @@ namespace FIT_Api_Examples.Modul2.Controllers
                     drzava_rodjenja_opis = s.opstina_rodjenja.drzava.naziv,
                     opstina_rodjenja_id = s.opstina_rodjenja_id,
                     vrijeme_dodavanja = s.created_time.ToString("dd.MM.yyyy"),
-                    slika_korisnika_postojeca = s.slika_korisnika_bajtovi,
+                    slika_korisnika_postojeca_base64_DB = s.slika_korisnika_bajtovi,//varijanta 1: slika iz DB
                 })
                 .ToList();
-            //nemojte koristiti entity klase -jer bi onda čitao byte[] za svakog studenta.
+            
             data.ForEach(s=>
             {
-                if (s.slika_korisnika_postojeca == null)
-                {
-                    s.slika_korisnika_postojeca = Fajlovi.Ucitaj("wwwroot/profile_images/empty.png");
-                }
+                //varijanta 2: slika sa File systema
+                s.slika_korisnika_postojeca_base64_FS = Fajlovi.Ucitaj("slike_korisnika/" + s.id + ".png")
+                                                        ?? Fajlovi.Ucitaj("wwwroot/profile_images/empty.png");//ako je null
+
+                s.slika_korisnika_postojeca_base64_DB ??= Fajlovi.Ucitaj("wwwroot/profile_images/empty.png");//ako je null
             });
 
             return Ok(data);
@@ -129,12 +130,8 @@ namespace FIT_Api_Examples.Modul2.Controllers
         [HttpGet("{id}")]
         public ActionResult GetSlikaDB(int id)
         {
-            byte[] bajtovi_slike = _dbContext.Student.Find(id).slika_korisnika_bajtovi;
-
-            if (bajtovi_slike == null)
-            {
-                bajtovi_slike = Fajlovi.Ucitaj("wwwroot/profile_images/empty.png");
-            }
+            byte[] bajtovi_slike = _dbContext.Student.Find(id).slika_korisnika_bajtovi 
+                                   ?? Fajlovi.Ucitaj("wwwroot/profile_images/empty.png");
 
             return File(bajtovi_slike, "image/png");
         }
@@ -142,12 +139,8 @@ namespace FIT_Api_Examples.Modul2.Controllers
         [HttpGet("{id}")]
         public ActionResult GetSlikaFS(int id)
         {
-            byte[] bajtovi_slike = Fajlovi.Ucitaj("slike_korisnika/" + id + ".png");
-
-            if (bajtovi_slike == null)
-            {
-                bajtovi_slike = Fajlovi.Ucitaj("wwwroot/profile_images/empty.png");
-            }
+            byte[] bajtovi_slike = Fajlovi.Ucitaj("slike_korisnika/" + id + ".png") 
+                                   ?? Fajlovi.Ucitaj("wwwroot/profile_images/empty.png");
 
             return File(bajtovi_slike, "image/png");
         }

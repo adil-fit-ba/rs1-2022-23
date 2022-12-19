@@ -91,7 +91,8 @@ export class StudentiComponent implements OnInit {
       drzava_rodjenja_opis:"",
       opstina_rodjenja_id:5,
       slika_korisnika_nova_base64:"",
-      slika_korisnika_postojeca:""
+      slika_korisnika_postojeca_base64_FS:"",
+      slika_korisnika_postojeca_base64_DB:""
     };
   }
 
@@ -112,12 +113,20 @@ export class StudentiComponent implements OnInit {
     return Math.floor(Math.random() * (max - min + 1) + min)
   }
 
+  get_slika_novi_request_FS(s: StudentGetallVM) {
+     return `${MojConfig.adresa_servera}/Student/GetSlikaFS/${s.id}`;
+  }
 
-  get_slika(s: StudentGetallVM) {
-   // let r = this.randomIntFromInterval(1, 6);
-  //  return `${MojConfig.adresa_servera}/Student/GetSlikaFS/${s.id}?a=${r}`;
+  get_slika_novi_request_DB(s: StudentGetallVM) {
+    return `${MojConfig.adresa_servera}/Student/GetSlikaDB/${s.id}`;
+  }
 
-    return "data:image/png;base64,"+ s.slika_korisnika_postojeca;
+  get_slika_base64_FS(s: StudentGetallVM) {
+    return "data:image/png;base64,"+ s.slika_korisnika_postojeca_base64_FS;
+  }
+
+  get_slika_base64_DB(s: StudentGetallVM) {
+    return "data:image/png;base64,"+ s.slika_korisnika_postojeca_base64_DB;
   }
 
   generisi_preview() {
