@@ -14,8 +14,8 @@ declare function porukaError(a: string):any;
   styleUrls: ['./student-maticnaknjiga.component.css']
 })
 export class StudentMaticnaknjigaComponent implements OnInit {
-   studentid: number;
-   podaci:MaticnaKnjigaVM;
+   studentid?: number| null;
+   podaci?:MaticnaKnjigaVM | null;
 
   constructor(private httpKlijent: HttpClient, private route: ActivatedRoute) {}
 

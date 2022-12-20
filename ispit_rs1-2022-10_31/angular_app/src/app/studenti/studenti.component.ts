@@ -17,9 +17,9 @@ export class StudentiComponent implements OnInit {
   ime_prezime:string = '';
   opstina: string = '';
   studentPodaci: StudentGetallVM[] = [];
-  filter_ime_prezime: boolean;
-  filter_opstina: boolean;
-  odabranistudent: StudentGetallVM;
+  filter_ime_prezime: boolean=false;
+  filter_opstina: boolean=false;
+  odabranistudent?: StudentGetallVM | null;
   opstinePodaci: any;
 
 
@@ -136,7 +136,7 @@ export class StudentiComponent implements OnInit {
       var reader = new FileReader();
       let this2=this;
       reader.onload = function () {
-        this2.odabranistudent.slika_korisnika_nova_base64 = reader.result.toString();
+        this2.odabranistudent!.slika_korisnika_nova_base64 = reader.result!.toString();
       }
 
       reader.readAsDataURL(file);

@@ -29,6 +29,6 @@ namespace FIT_Api_Examples.Modul0_Autentifikacija.Models
         public bool isDekan { get; set; }
         public bool isStudentskaSluzba { get; set; }
 
-        public byte[] slika_korisnika_bajtovi { get; set; }
+        public byte[]? slika_korisnika_bajtovi { get; set; }
     }
 }

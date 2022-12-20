@@ -17,7 +17,7 @@
 
         <li class="nav-item dropdown" >
           <a class="nav-link dropdown-toggle" href="#" id="navbarLogiraniKorisnikLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-           <img class="profilna-slika" src="{{loginInfo().autentifikacijaToken.korisnickiNalog.slika_korisnika}}"> {{loginInfo().autentifikacijaToken.korisnickiNalog.korisnickoIme}}
+           <img class="profilna-slika" src="{{loginInfo().autentifikacijaToken!.korisnickiNalog!.slika_korisnika}}"> {{loginInfo().autentifikacijaToken!.korisnickiNalog!.korisnickoIme}}
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarLogiraniKorisnikLink">
             <li><a class="dropdown-item" routerLink="/postavke-profila">Postavke profila</a></li>
@@ -30,6 +30,11 @@
     </div>
   </div>
 </nav>
-
+<div style="border: 1px solid red; min-height: 20px">
+  {{signalrFeedService.podaci1}}
+</div>
+<div  style="border: 1px solid blue; min-height: 20px">
+  {{signalrFeedService.podaci2}}
+</div>
 
 <router-outlet></router-outlet>

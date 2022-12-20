@@ -30,9 +30,11 @@ namespace FIT_Api_Examples.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("ipAdresa")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("vrijednost")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("vrijemeEvidentiranja")
@@ -65,9 +67,11 @@ namespace FIT_Api_Examples.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("korisnickoIme")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("lozinka")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<byte[]>("slika_korisnika_bajtovi")
@@ -98,6 +102,7 @@ namespace FIT_Api_Examples.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("opis")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("id");
@@ -117,6 +122,7 @@ namespace FIT_Api_Examples.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("naziv")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("id");
@@ -135,6 +141,7 @@ namespace FIT_Api_Examples.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Naziv")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("PredmetID")
@@ -164,12 +171,15 @@ namespace FIT_Api_Examples.Migrations
                         .HasColumnType("int");
 
                     b.Property<int?>("izmijenioKorisnikID")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<string>("naslov")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("tekst")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("id");
@@ -189,6 +199,7 @@ namespace FIT_Api_Examples.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("drzava_id")
@@ -212,9 +223,11 @@ namespace FIT_Api_Examples.Migrations
                         .HasColumnType("real");
 
                     b.Property<string>("Naziv")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Sifra")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
@@ -294,9 +307,11 @@ namespace FIT_Api_Examples.Migrations
                     b.HasBaseType("FIT_Api_Examples.Modul0_Autentifikacija.Models.KorisnickiNalog");
 
                     b.Property<string>("ime")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("prezime")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.ToTable("Nastavnik");
@@ -307,18 +322,21 @@ namespace FIT_Api_Examples.Migrations
                     b.HasBaseType("FIT_Api_Examples.Modul0_Autentifikacija.Models.KorisnickiNalog");
 
                     b.Property<string>("broj_indeksa")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("created_time")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ime")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("opstina_rodjenja_id")
                         .HasColumnType("int");
 
                     b.Property<string>("prezime")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasIndex("opstina_rodjenja_id");
@@ -373,7 +391,9 @@ namespace FIT_Api_Examples.Migrations
 
                     b.HasOne("FIT_Api_Examples.Modul0_Autentifikacija.Models.KorisnickiNalog", "izmijenioKorisnik")
                         .WithMany()
-                        .HasForeignKey("izmijenioKorisnikID");
+                        .HasForeignKey("izmijenioKorisnikID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("evidentiraoKorisnik");
 

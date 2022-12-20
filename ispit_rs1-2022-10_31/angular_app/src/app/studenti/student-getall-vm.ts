@@ -1,4 +1,4 @@
-export class StudentGetallVM {
+export interface StudentGetallVM {
   id: number;
   ime: string;
   prezime: string;

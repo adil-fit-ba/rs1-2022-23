@@ -2,7 +2,7 @@ import {LoginInformacije} from "./login-informacije";
 
 export class AutentifikacijaHelper {
 
-  static setLoginInfo(x: LoginInformacije):void
+  static setLoginInfo(x?: LoginInformacije | null):void
   {
     if (x==null)
       x = new LoginInformacije();
@@ -16,7 +16,7 @@ export class AutentifikacijaHelper {
         return new LoginInformacije();
 
       try {
-        let loginInformacije:LoginInformacije = JSON.parse(x);
+        let loginInformacije:LoginInformacije = JSON.parse(x!);
         if (loginInformacije==null)
           return new LoginInformacije();
         return loginInformacije;

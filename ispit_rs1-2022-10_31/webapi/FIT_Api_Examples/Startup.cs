@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FIT_Api_Examples.Data;
+using FIT_Api_Examples.Hubs;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
 
@@ -59,6 +60,7 @@ namespace FIT_Api_Examples
             app.UseStaticFiles();
 
             app.UseHttpsRedirection();
+    
             app.UseSwagger();
 
             // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
@@ -84,6 +86,8 @@ namespace FIT_Api_Examples
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller}/{action=Index}/{id?}");
+
+                endpoints.MapHub<FeedHub>("/FeedHub");
 
             });
         }

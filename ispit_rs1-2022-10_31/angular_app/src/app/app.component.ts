@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MojConfig} from "./moj-config";
 import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {AutentifikacijaHelper} from "./_helpers/autentifikacija-helper";
 import {LoginInformacije} from "./_helpers/login-informacije";
+import {SignalrFeedService} from "./services/signalrservices";
 
 declare function porukaSuccess(a: string):any;
 declare function porukaError(a: string):any;
@@ -13,10 +14,12 @@ declare function porukaError(a: string):any;
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
-  constructor(private httpKlijent: HttpClient, private router: Router) {
+  constructor(private httpKlijent: HttpClient, private router: Router, public signalrFeedService: SignalrFeedService) {
   }
+
+
 
   logoutButton() {
     AutentifikacijaHelper.setLoginInfo(null);
@@ -30,5 +33,9 @@ export class AppComponent {
 
   loginInfo():LoginInformacije {
     return AutentifikacijaHelper.getLoginInfo();
+  }
+
+  ngOnInit(): void {
+    this.signalrFeedService.otvoriKanal();
   }
 }

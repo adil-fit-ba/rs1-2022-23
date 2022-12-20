@@ -8,7 +8,7 @@ import { RouterModule } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { RegistracijaComponent } from './registracija/registracija.component';
 import { HomeComponent } from './home/home.component';
-import {AutorizacijaLoginProvjera} from "./_guards/autorizacija-login-provjera.service";
+import { AutorizacijaLoginProvjera} from "./_guards/autorizacija-login-provjera.service";
 import { NotFoundComponent } from './not-found/not-found.component';
 import { StudentMaticnaknjigaComponent } from './student-maticnaknjiga/student-maticnaknjiga.component';
 import { StudentEditComponent } from './studenti/student-edit/student-edit.component';
