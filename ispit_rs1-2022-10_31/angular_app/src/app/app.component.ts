@@ -4,7 +4,7 @@ import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {AutentifikacijaHelper} from "./_helpers/autentifikacija-helper";
 import {LoginInformacije} from "./_helpers/login-informacije";
-import {SignalrFeedService} from "./services/signalrservices";
+import {NekoImeHubServise} from "./services/signalrservices";
 
 declare function porukaSuccess(a: string):any;
 declare function porukaError(a: string):any;
@@ -16,7 +16,7 @@ declare function porukaError(a: string):any;
 })
 export class AppComponent implements OnInit {
 
-  constructor(private httpKlijent: HttpClient, private router: Router, public signalrFeedService: SignalrFeedService) {
+  constructor(private httpKlijent: HttpClient, private router: Router) {
   }
 
 
@@ -36,6 +36,5 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.signalrFeedService.otvoriKanal();
   }
 }

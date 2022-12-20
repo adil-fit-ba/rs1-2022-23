@@ -11,7 +11,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FIT_Api_Examples.Data;
-using FIT_Api_Examples.Hubs;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
 
@@ -33,7 +32,6 @@ namespace FIT_Api_Examples
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddSignalR();
             services.AddControllers();
 
             // Register the Swagger generator, defining 1 or more Swagger documents
@@ -87,7 +85,6 @@ namespace FIT_Api_Examples
                     name: "default",
                     pattern: "{controller}/{action=Index}/{id?}");
 
-                endpoints.MapHub<FeedHub>("/FeedHub");
 
             });
         }
