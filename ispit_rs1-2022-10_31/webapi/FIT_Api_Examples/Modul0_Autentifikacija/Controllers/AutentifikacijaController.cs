@@ -30,9 +30,9 @@ namespace FIT_Api_Examples.Modul0_Autentifikacija.Controllers
         public ActionResult<LoginInformacije> Login([FromBody] LoginVM x)
         {
             //1- provjera logina
-            KorisnickiNalog logiraniKorisnik = _dbContext.KorisnickiNalog
+            KorisnickiNalog? logiraniKorisnik = _dbContext.KorisnickiNalog
                 .FirstOrDefault(k =>
-                k.korisnickoIme != null && k.korisnickoIme == x.korisnickoIme && k.lozinka == x.lozinka);
+                k.korisnickoIme == x.korisnickoIme && k.lozinka == x.lozinka);
 
             if (logiraniKorisnik == null)
             {
@@ -46,7 +46,7 @@ namespace FIT_Api_Examples.Modul0_Autentifikacija.Controllers
             //3- dodati novi zapis u tabelu AutentifikacijaToken za logiraniKorisnikId i randomString
             var noviToken = new AutentifikacijaToken()
             {
-                ipAdresa = Request.HttpContext.Connection.RemoteIpAddress?.ToString(),
+                ipAdresa = Request.HttpContext.Connection.RemoteIpAddress?.ToString()??"",
                 vrijednost = randomString,
                 korisnickiNalog = logiraniKorisnik,
                 vrijemeEvidentiranja = DateTime.Now
@@ -62,7 +62,7 @@ namespace FIT_Api_Examples.Modul0_Autentifikacija.Controllers
         [HttpPost]
         public ActionResult Logout()
         {
-            AutentifikacijaToken autentifikacijaToken = HttpContext.GetAuthToken();
+            AutentifikacijaToken? autentifikacijaToken = HttpContext.GetAuthToken();
 
             if (autentifikacijaToken == null)
                 return Ok();
@@ -73,11 +73,14 @@ namespace FIT_Api_Examples.Modul0_Autentifikacija.Controllers
         }
 
         [HttpGet]
-        public ActionResult<AutentifikacijaToken> Get()
+        public ActionResult Get()
         {
-            AutentifikacijaToken autentifikacijaToken = HttpContext.GetAuthToken();
+            AutentifikacijaToken? autentifikacijaToken = HttpContext.GetAuthToken();
 
-            return autentifikacijaToken;
+            if (autentifikacijaToken == null)
+                return Ok(new AutentifikacijaToken());
+
+            return Ok(autentifikacijaToken);
         }
     }
 }
