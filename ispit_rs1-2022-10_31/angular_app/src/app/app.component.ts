@@ -4,7 +4,6 @@ import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {AutentifikacijaHelper} from "./_helpers/autentifikacija-helper";
 import {LoginInformacije} from "./_helpers/login-informacije";
-import {NekoImeHubServise} from "./services/signalrservices";
 
 declare function porukaSuccess(a: string):any;
 declare function porukaError(a: string):any;
