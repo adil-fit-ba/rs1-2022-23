@@ -21,13 +21,15 @@ export class AppComponent implements OnInit {
 
 
   logoutButton() {
-    AutentifikacijaHelper.setLoginInfo(null);
+    let token = MojConfig.http_opcije();
+    AutentifikacijaHelper.setLoginInfo(null);//brise token iz localstorage
 
-    this.httpKlijent.post(MojConfig.adresa_servera + "/Autentifikacija/Logout/", null, MojConfig.http_opcije())
+    this.httpKlijent.post(MojConfig.adresa_servera + "/Autentifikacija/Logout/", null, token)
       .subscribe((x: any) => {
-        this.router.navigateByUrl("/login");
         porukaSuccess("Logout uspješan");
       });
+
+    this.router.navigateByUrl("/login");
   }
 
   loginInfo():LoginInformacije {
