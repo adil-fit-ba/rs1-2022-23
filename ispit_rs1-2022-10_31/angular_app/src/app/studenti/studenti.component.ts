@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {MojConfig} from "../moj-config";
 import {Router} from "@angular/router";
 import {StudentGetallVM} from "./student-getall-vm";
+import {SignalRServis} from "../_servisi/SignalRServis";
 declare function porukaSuccess(a: string):any;
 declare function porukaError(a: string):any;
 
@@ -23,7 +24,8 @@ export class StudentiComponent implements OnInit {
   opstinePodaci: any;
 
 
-  constructor(private httpKlijent: HttpClient, private router: Router) {
+  constructor(private httpKlijent: HttpClient, private router: Router
+              , public signalRervis: SignalRServis) {
   }
 
   fetchStudenti() :void
@@ -41,6 +43,7 @@ export class StudentiComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.signalRervis.otvoriKanalWS();
     this.fetchStudenti();
     this.fetchOpstine();
   }
