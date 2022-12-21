@@ -38,4 +38,8 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.signalrFeedService.otvoriKanal();
   }
+  changeText() {
+    this.signalrFeedService.posalji();
+
+  }
 }

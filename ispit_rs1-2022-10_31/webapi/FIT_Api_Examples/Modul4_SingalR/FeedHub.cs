@@ -9,7 +9,10 @@
         {
 
         }
-
-  
+        public async Task SaljiTxtBox(string p)
+        {
+            await Clients.Others.SendAsync("PrimiTxtBox", p);
+        }
+     
     }
 }

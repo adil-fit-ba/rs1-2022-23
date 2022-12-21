@@ -10,6 +10,7 @@ export class SignalrFeedService {
   private hubConnection?: signalR.HubConnection
   public podaci1: any;
   public podaci2: any;
+  public textPoruka: any="";
 
   public otvoriKanal()
   {
@@ -30,7 +31,15 @@ export class SignalrFeedService {
       this.podaci2 = podaci;
       console.log(podaci);
     });
+
+    this.hubConnection.on('PrimiTxtBox', (podaci) => {
+      this.textPoruka = podaci;
+      console.log(podaci);
+    });
   }
 
 
+  posalji() {
+    this.hubConnection!.invoke("SaljiTxtBox", this.textPoruka);
+  }
 }

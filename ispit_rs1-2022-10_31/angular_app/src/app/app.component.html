@@ -37,4 +37,7 @@
   {{signalrFeedService.podaci2}}
 </div>
 
+<div  style="border: 1px solid blue; min-height: 20px">
+  <input [(ngModel)]="signalrFeedService.textPoruka" (keyup)="changeText()">
+</div>
 <router-outlet></router-outlet>
