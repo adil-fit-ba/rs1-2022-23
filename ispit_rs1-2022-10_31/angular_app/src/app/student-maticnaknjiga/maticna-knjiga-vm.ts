@@ -1,5 +1,5 @@
 
-export class ListaUpisi {
+export interface ListaUpisi {
   id: number;
   akademska_godina_opis: string;
   godinastudina: number;
@@ -10,7 +10,7 @@ export class ListaUpisi {
   evidentirao_korisnik: string;
 }
 
-export class MaticnaKnjigaVM {
+export interface MaticnaKnjigaVM {
   student_id: number;
   ime: string;
   prezime: string;

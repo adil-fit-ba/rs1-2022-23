@@ -2,7 +2,7 @@ import {LoginInformacije} from "./login-informacije";
 
 export class AutentifikacijaHelper {
 
-  static setLoginInfo(x: LoginInformacije):void
+  static setLoginInfo(x?: LoginInformacije | null):void
   {
     if (x==null)
       x = new LoginInformacije();
@@ -12,7 +12,7 @@ export class AutentifikacijaHelper {
   static getLoginInfo():LoginInformacije
   {
       let x = localStorage.getItem("autentifikacija-token");
-      if (x==="")
+      if (x==null || x==="")
         return new LoginInformacije();
 
       try {

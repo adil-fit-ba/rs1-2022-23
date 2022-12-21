@@ -25,7 +25,7 @@ export class AppComponent {
 
     this.httpKlijent.post(MojConfig.adresa_servera + "/Autentifikacija/Logout/", null, token)
       .subscribe((x: any) => {
-        
+
         porukaSuccess("Logout uspješan");
       });
 
