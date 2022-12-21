@@ -18,10 +18,10 @@ namespace FIT_Api_Examples.Modul0_Autentifikacija.Models
         public string lozinka { get; set; }
 
         [JsonIgnore]
-        public Student student => this as Student;
+        public Student? student => this as Student;
 
         [JsonIgnore]
-        public Nastavnik nastavnik => this as Nastavnik;
+        public Nastavnik? nastavnik => this as Nastavnik;
         public bool isNastavnik => nastavnik != null;
         public bool isStudent => student != null;
         public bool isAdmin { get; set; }
@@ -29,6 +29,6 @@ namespace FIT_Api_Examples.Modul0_Autentifikacija.Models
         public bool isDekan { get; set; }
         public bool isStudentskaSluzba { get; set; }
 
-        public byte[] slika_korisnika_bajtovi { get; set; }
+        public byte[]? slika_korisnika_bajtovi { get; set; }
     }
 }

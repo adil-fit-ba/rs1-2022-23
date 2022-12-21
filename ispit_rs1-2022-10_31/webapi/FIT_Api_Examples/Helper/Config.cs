@@ -7,6 +7,5 @@ namespace FIT_Api_Examples.Helper
 {
     public class Config
     {
-        public static string FolderSlikeKorisnika => "profile_images/";
     }
 }

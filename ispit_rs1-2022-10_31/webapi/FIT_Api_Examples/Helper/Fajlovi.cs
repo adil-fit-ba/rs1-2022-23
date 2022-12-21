@@ -5,7 +5,7 @@ namespace FIT_Api_Examples.Helper
 {
     public class Fajlovi
     {
-        public static byte[] Ucitaj(string path)
+        public static byte[]? Ucitaj(string path)
         {
             try
             {
@@ -20,7 +20,8 @@ namespace FIT_Api_Examples.Helper
         public static void Snimi(byte[] bajtoviBytes, string path)
         {
             var directoryName = Path.GetDirectoryName(path);
-            System.IO.Directory.CreateDirectory(directoryName);
+            if (directoryName != null)
+                System.IO.Directory.CreateDirectory(directoryName);
 
             using var fs = new FileStream(path, FileMode.Create, FileAccess.Write);
             fs.Write(bajtoviBytes, 0, bajtoviBytes.Length);

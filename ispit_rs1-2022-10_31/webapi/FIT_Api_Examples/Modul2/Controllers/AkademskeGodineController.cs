@@ -19,16 +19,18 @@ namespace FIT_Api_Examples.Modul2.Controllers
         }
 
         [HttpGet]
-        public List<CmbStavke> GetAll_ForCmb()
+        public ActionResult GetAll_ForCmb()
         {
-            return _dbContext.AkademskaGodina
+            var p= _dbContext.AkademskaGodina
                 .OrderByDescending(x => x.id)
-                .Select(s=>new CmbStavke
+                .Select(s=>new
                 {
                     opis = s.opis,
                     id = s.id
                 })
                 .ToList();
+
+            return Ok(p);
         }
  
     }

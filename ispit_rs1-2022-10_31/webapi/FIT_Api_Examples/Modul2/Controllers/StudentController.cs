@@ -69,11 +69,14 @@ namespace FIT_Api_Examples.Modul2.Controllers
             student.prezime = x.prezime.RemoveTags();
             student.opstina_rodjenja_id = x.opstina_rodjenja_id;
 
-            if (x.slika_korisnika_nova_base64 != "")
+            if (!string.IsNullOrEmpty(x.slika_korisnika_nova_base64))
             {
                 //slika se snima u db
-                byte[] slika_bajtovi = x.slika_korisnika_nova_base64.ParsirajBase64();
+                byte[]? slika_bajtovi = x.slika_korisnika_nova_base64?.ParsirajBase64();
                 student.slika_korisnika_bajtovi = slika_bajtovi;
+
+                if (slika_bajtovi == null)
+                    return BadRequest("format slike nije base64");
 
                 //slika se snima na File System
                 Fajlovi.Snimi(slika_bajtovi, "slike_korisnika/" + student.id + ".png");
@@ -83,7 +86,7 @@ namespace FIT_Api_Examples.Modul2.Controllers
 
          
             
-            if (student.broj_indeksa == null)
+            if (student.broj_indeksa != "" )
             {
                 student.broj_indeksa = "IB" + x.id;
                 student.korisnickoIme = x.broj_indeksa;
@@ -95,7 +98,7 @@ namespace FIT_Api_Examples.Modul2.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetAll(string ime_prezime)
+        public ActionResult GetAll(string? ime_prezime)
         {
             var data = _dbContext.Student
                 .Include(s=>s.opstina_rodjenja.drzava)
@@ -130,8 +133,10 @@ namespace FIT_Api_Examples.Modul2.Controllers
         [HttpGet("{id}")]
         public ActionResult GetSlikaDB(int id)
         {
-            byte[] bajtovi_slike = _dbContext.Student.Find(id).slika_korisnika_bajtovi 
+            byte[]? bajtovi_slike = _dbContext.Student.Find(id).slika_korisnika_bajtovi 
                                    ?? Fajlovi.Ucitaj("wwwroot/profile_images/empty.png");
+            if (bajtovi_slike == null)
+                throw new Exception();//bug
 
             return File(bajtovi_slike, "image/png");
         }
@@ -139,8 +144,11 @@ namespace FIT_Api_Examples.Modul2.Controllers
         [HttpGet("{id}")]
         public ActionResult GetSlikaFS(int id)
         {
-            byte[] bajtovi_slike = Fajlovi.Ucitaj("slike_korisnika/" + id + ".png") 
+            byte[]? bajtovi_slike = Fajlovi.Ucitaj("slike_korisnika/" + id + ".png") 
                                    ?? Fajlovi.Ucitaj("wwwroot/profile_images/empty.png");
+
+            if (bajtovi_slike == null)
+                throw new Exception();//bug
 
             return File(bajtovi_slike, "image/png");
         }

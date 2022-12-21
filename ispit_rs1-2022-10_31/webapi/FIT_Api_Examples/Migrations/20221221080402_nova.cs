@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FIT_Api_Examples.Migrations
 {
-    public partial class inicijalno : Migration
+    public partial class nova : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,7 +13,7 @@ namespace FIT_Api_Examples.Migrations
                 {
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    naziv = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    naziv = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -26,12 +26,13 @@ namespace FIT_Api_Examples.Migrations
                 {
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    korisnickoIme = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    lozinka = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    korisnickoIme = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    lozinka = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     isAdmin = table.Column<bool>(type: "bit", nullable: false),
                     isProdekan = table.Column<bool>(type: "bit", nullable: false),
                     isDekan = table.Column<bool>(type: "bit", nullable: false),
-                    isStudentskaSluzba = table.Column<bool>(type: "bit", nullable: false)
+                    isStudentskaSluzba = table.Column<bool>(type: "bit", nullable: false),
+                    slika_korisnika_bajtovi = table.Column<byte[]>(type: "varbinary(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -44,8 +45,8 @@ namespace FIT_Api_Examples.Migrations
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Naziv = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Sifra = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Naziv = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Sifra = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ECTS = table.Column<float>(type: "real", nullable: false)
                 },
                 constraints: table =>
@@ -59,7 +60,7 @@ namespace FIT_Api_Examples.Migrations
                 {
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     drzava_id = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -70,7 +71,7 @@ namespace FIT_Api_Examples.Migrations
                         column: x => x.drzava_id,
                         principalTable: "Drzava",
                         principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
@@ -79,7 +80,7 @@ namespace FIT_Api_Examples.Migrations
                 {
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    opis = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    opis = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     evidentiraoKorisnikid = table.Column<int>(type: "int", nullable: true),
                     datum_update = table.Column<DateTime>(type: "datetime2", nullable: true),
                     izmijenioKorisnikid = table.Column<int>(type: "int", nullable: true),
@@ -108,10 +109,10 @@ namespace FIT_Api_Examples.Migrations
                 {
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    vrijednost = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    vrijednost = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     KorisnickiNalogId = table.Column<int>(type: "int", nullable: false),
                     vrijemeEvidentiranja = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ipAdresa = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    ipAdresa = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -121,7 +122,7 @@ namespace FIT_Api_Examples.Migrations
                         column: x => x.KorisnickiNalogId,
                         principalTable: "KorisnickiNalog",
                         principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
@@ -129,8 +130,8 @@ namespace FIT_Api_Examples.Migrations
                 columns: table => new
                 {
                     id = table.Column<int>(type: "int", nullable: false),
-                    ime = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    prezime = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    ime = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    prezime = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -149,11 +150,11 @@ namespace FIT_Api_Examples.Migrations
                 {
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    naslov = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    tekst = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    naslov = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    tekst = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     datum_kreiranja = table.Column<DateTime>(type: "datetime2", nullable: false),
                     evidentiraoKorisnikID = table.Column<int>(type: "int", nullable: false),
-                    izmijenioKorisnikID = table.Column<int>(type: "int", nullable: true),
+                    izmijenioKorisnikID = table.Column<int>(type: "int", nullable: false),
                     datum_update = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
@@ -164,13 +165,13 @@ namespace FIT_Api_Examples.Migrations
                         column: x => x.evidentiraoKorisnikID,
                         principalTable: "KorisnickiNalog",
                         principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_Obavijest_KorisnickiNalog_izmijenioKorisnikID",
                         column: x => x.izmijenioKorisnikID,
                         principalTable: "KorisnickiNalog",
                         principalColumn: "id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
@@ -179,7 +180,7 @@ namespace FIT_Api_Examples.Migrations
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Naziv = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Naziv = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PredmetID = table.Column<int>(type: "int", nullable: false),
                     DatumIspita = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -191,7 +192,7 @@ namespace FIT_Api_Examples.Migrations
                         column: x => x.PredmetID,
                         principalTable: "Predmet",
                         principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
@@ -199,9 +200,9 @@ namespace FIT_Api_Examples.Migrations
                 columns: table => new
                 {
                     id = table.Column<int>(type: "int", nullable: false),
-                    ime = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    prezime = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    broj_indeksa = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ime = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    prezime = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    broj_indeksa = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     opstina_rodjenja_id = table.Column<int>(type: "int", nullable: true),
                     created_time = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -240,13 +241,13 @@ namespace FIT_Api_Examples.Migrations
                         column: x => x.IspitID,
                         principalTable: "Ispit",
                         principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_PrijavaIspita_Student_StudentID",
                         column: x => x.StudentID,
                         principalTable: "Student",
                         principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
@@ -272,19 +273,19 @@ namespace FIT_Api_Examples.Migrations
                         column: x => x.akademskaGodina_id,
                         principalTable: "AkademskaGodina",
                         principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_UpisAkGodine_KorisnickiNalog_evidentiraoKorisnikID",
                         column: x => x.evidentiraoKorisnikID,
                         principalTable: "KorisnickiNalog",
                         principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_UpisAkGodine_Student_student_id",
                         column: x => x.student_id,
                         principalTable: "Student",
                         principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateIndex(
