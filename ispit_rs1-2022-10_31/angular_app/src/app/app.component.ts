@@ -4,6 +4,8 @@ import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {AutentifikacijaHelper} from "./_helpers/autentifikacija-helper";
 import {LoginInformacije} from "./_helpers/login-informacije";
+import {SignalRProba2Servis} from "./_servisi/signal-r-proba2-servis.service";
+import {SignalRProba1Servis} from "./_servisi/signal-r-proba1-servis.service";
 
 declare function porukaSuccess(a: string):any;
 declare function porukaError(a: string):any;
@@ -15,7 +17,9 @@ declare function porukaError(a: string):any;
 })
 export class AppComponent {
 
-  constructor(private httpKlijent: HttpClient, private router: Router) {
+  constructor(private httpKlijent: HttpClient, private router: Router,
+              public  probaServis: SignalRProba1Servis) {
+    probaServis.otvoriKanalWebSocket();
   }
 
   logoutButton() {

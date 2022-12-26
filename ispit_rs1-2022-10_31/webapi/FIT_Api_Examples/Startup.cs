@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FIT_Api_Examples.Data;
+using FIT_Api_Examples.Modul4_SignalRDemo;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
 
@@ -84,6 +85,8 @@ namespace FIT_Api_Examples
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller}/{action=Index}/{id?}");
+
+                endpoints.MapHub<PorukeHub>("/poruke-hub-putanja");
 
             });
         }

@@ -2,7 +2,7 @@
 
 <div>
   <input [(ngModel)] = "filter_ime_prezime" type="checkbox"> Filter by <span style="font-weight: bold">Ime / prezime</span> <br>
-  <input [(ngModel)]="ime_prezime" [disabled]="!filter_ime_prezime"><br>
+  <input (keyup)="proba2Servis.posaljiImePrezime()" [(ngModel)]="proba2Servis.ime_prezime" [disabled]="!filter_ime_prezime"><br>
   <hr>
 
   <input [(ngModel)] = "filter_opstina" type="checkbox"> Filter by <span style="font-weight: bold">Opština rođenja</span> <br>
