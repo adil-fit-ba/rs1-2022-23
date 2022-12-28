@@ -11,10 +11,10 @@ namespace FIT_Api_Examples.Helper.AutentifikacijaAutorizacija
 {
     public class AutorizacijaAttribute : TypeFilterAttribute
     {
-        public AutorizacijaAttribute(bool studentskaSluzba, bool prodekan, bool dekan, bool admin, bool studenti, bool nastavnici)
+        public AutorizacijaAttribute(bool studentskaSluzba, bool prodekan, bool dekan, bool studenti, bool nastavnici)
             : base(typeof(MyAuthorizeImpl))
         {
-            Arguments = new object[] { studentskaSluzba, prodekan, dekan, admin , studenti , nastavnici };
+            Arguments = new object[] { studentskaSluzba, prodekan, dekan, studenti , nastavnici };
         }
     }
 
@@ -24,42 +24,65 @@ namespace FIT_Api_Examples.Helper.AutentifikacijaAutorizacija
         private readonly bool _studentskaSluzba;
         private readonly bool _prodekan;
         private readonly bool _dekan;
-        private readonly bool _admin;
         private readonly bool _studenti;
         private readonly bool _nastavnici;
 
-        public MyAuthorizeImpl(bool studentskaSluzba, bool prodekan, bool dekan, bool admin, bool studenti, bool nastavnici)
+        public MyAuthorizeImpl(bool studentskaSluzba, bool prodekan, bool dekan, bool studenti, bool nastavnici)
         {
             _studentskaSluzba = studentskaSluzba;
             _prodekan = prodekan;
             _dekan = dekan;
-            _admin = admin;
             _studenti = studenti;
             _nastavnici = nastavnici;
         }
-        public void OnActionExecuted(ActionExecutedContext context)
+        public void OnActionExecuted(ActionExecutedContext filterContext)
         {
-
+            KretanjePoSistemu.Save(filterContext.HttpContext);
 
         }
 
         public void OnActionExecuting(ActionExecutingContext filterContext)
         {
-
-            if (filterContext.HttpContext.GetLoginInfo().isLogiran)
+            MyAuthTokenExtension.LoginInformacije loginInfo = filterContext.HttpContext.GetLoginInfo();
+            if (!loginInfo.isLogiran || loginInfo.korisnickiNalog == null)
             {
                 filterContext.Result = new UnauthorizedResult();
                 return;
             }
 
-            KretanjePoSistemu.Save(filterContext.HttpContext);
-            
-            if (filterContext.HttpContext.GetLoginInfo().isLogiran)
+            if (loginInfo.korisnickiNalog.isNastavnik)
+            {
+                filterContext.Result = new UnauthorizedObjectResult("korinsik niej aktiviran");
+                return;
+            }
+
+            if (!loginInfo.korisnickiNalog.isAdmin)
+            {
+                return;
+            }
+
+            if (loginInfo.korisnickiNalog.isNastavnik && this._nastavnici)
             {
                 return;//ok - ima pravo pristupa
             }
-           
-
+            
+            if (loginInfo.korisnickiNalog.isDekan && this._dekan)
+            {
+                return;//ok - ima pravo pristupa
+            }
+            if (loginInfo.korisnickiNalog.isProdekan && this._prodekan)
+            {
+                return;//ok - ima pravo pristupa
+            }
+            if (loginInfo.korisnickiNalog.isStudent && this._studenti)
+            {
+                return;//ok - ima pravo pristupa
+            }
+            if (loginInfo.korisnickiNalog.isStudentskaSluzba && this._studentskaSluzba)
+            {
+                return;//ok - ima pravo pristupa
+            }
+            
             //else nema pravo pristupa
             filterContext.Result = new UnauthorizedResult();
         }

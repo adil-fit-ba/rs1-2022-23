@@ -13,9 +13,9 @@ namespace FIT_Api_Examples.Helper.AutentifikacijaAutorizacija
 {
     public class KretanjePoSistemu
     {
-        public static int Save(HttpContext httpContext, IExceptionHandlerPathFeature exceptionMessage = null)
+        public static int Save(HttpContext httpContext, IExceptionHandlerPathFeature? exceptionMessage = null)
         {
-            KorisnickiNalog korisnik = httpContext.GetLoginInfo().korisnickiNalog;
+            KorisnickiNalog? korisnik = httpContext.GetLoginInfo().korisnickiNalog;
 
             var request = httpContext.Request;
 
