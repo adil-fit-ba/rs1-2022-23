@@ -48,8 +48,14 @@ namespace FIT_Api_Examples.Helper.AutentifikacijaAutorizacija
                 filterContext.Result = new UnauthorizedResult();
                 return;
             }
-       
-            
+
+            if (!loginInfo.korisnickiNalog.isAktiviran)
+            {
+                filterContext.Result = new UnauthorizedObjectResult("korisnik nije aktiviran - provjerite email poruke " + loginInfo.korisnickiNalog.email);
+                return;
+            }
+
+
             if (loginInfo.korisnickiNalog.isAdmin)
             {
                 return;//ok - ima pravo pristupa

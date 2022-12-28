@@ -55,6 +55,8 @@ namespace FIT_Api_Examples.Modul0_Autentifikacija.Controllers
             _dbContext.Add(noviToken);
             _dbContext.SaveChanges();
 
+            EmailLog.uspjesnoLogiranKorisnik(logiraniKorisnik, Request.HttpContext);
+
             //4- vratiti token string
             return new LoginInformacije(noviToken);
         }
