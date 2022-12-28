@@ -43,6 +43,7 @@ namespace FIT_Api_Examples.Modul2.Controllers
 
 
         [HttpPost]
+        [Autorizacija(studentskaSluzba: true, prodekan: true, dekan: true, studenti: false, nastavnici: true)]
         public ActionResult Snimi([FromBody] StudentGetAllVM x)
         {
             Student student;
@@ -98,6 +99,7 @@ namespace FIT_Api_Examples.Modul2.Controllers
         }
 
         [HttpGet]
+        [Autorizacija(studentskaSluzba: true, prodekan: true, dekan: true, studenti: false, nastavnici: true)]
         public ActionResult GetAll(string? ime_prezime)
         {
             var data = _dbContext.Student

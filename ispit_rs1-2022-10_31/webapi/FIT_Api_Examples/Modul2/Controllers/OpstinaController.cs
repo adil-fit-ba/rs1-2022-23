@@ -23,11 +23,9 @@ namespace FIT_Api_Examples.Modul2.Controllers
         }
 
         [HttpPost]
+        [Autorizacija(studentskaSluzba: true, prodekan: true, dekan: true, studenti: false, nastavnici: true)]
         public ActionResult<Opstina> Add([FromBody] OpstinaAddVM x)
         {
-            if (!HttpContext.GetLoginInfo().isLogiran)
-                return BadRequest("nije logiran");
-
             var opstina = new Opstina
             {
                 description = x.opis,
@@ -53,6 +51,7 @@ namespace FIT_Api_Examples.Modul2.Controllers
         }
 
         [HttpGet]
+        [Autorizacija(studentskaSluzba: true, prodekan: true, dekan: true, studenti: true, nastavnici: true)]
         public ActionResult GetByAll()
         {
             var data = _dbContext.Opstina
