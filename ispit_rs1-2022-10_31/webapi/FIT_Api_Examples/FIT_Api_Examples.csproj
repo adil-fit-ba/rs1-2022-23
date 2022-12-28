@@ -19,6 +19,8 @@
 		  <PrivateAssets>all</PrivateAssets>
 		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
+		<PackageReference Include="RestSharp.Serializers.NewtonsoftJson" Version="108.0.3" />
+		<PackageReference Include="SendGrid" Version="9.28.1" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
 	</ItemGroup>
 

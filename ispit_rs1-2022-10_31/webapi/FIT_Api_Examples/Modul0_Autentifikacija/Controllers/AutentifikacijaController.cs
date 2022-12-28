@@ -27,7 +27,7 @@ namespace FIT_Api_Examples.Modul0_Autentifikacija.Controllers
 
 
         [HttpPost]
-        public ActionResult<LoginInformacije> Login([FromBody] LoginVM x)
+        public async Task<ActionResult<LoginInformacije>> Login([FromBody] LoginVM x)
         {
             //1- provjera logina
             KorisnickiNalog? logiraniKorisnik = _dbContext.KorisnickiNalog
@@ -54,6 +54,10 @@ namespace FIT_Api_Examples.Modul0_Autentifikacija.Controllers
 
             _dbContext.Add(noviToken);
             _dbContext.SaveChanges();
+
+            await MyEmailSender.posalji();
+
+           
 
             //4- vratiti token string
             return new LoginInformacije(noviToken);

@@ -98,7 +98,8 @@ namespace FIT_Api_Examples.Modul2.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetAll(string? ime_prezime)
+        [Autorizacija(studentskaSluzba: false, prodekan: false, dekan: false,  admin: false, studenti: false, nastavnici: true)]
+        public ActionResult GetAll(string?  ime_prezime)
         {
             var data = _dbContext.Student
                 .Include(s=>s.opstina_rodjenja.drzava)

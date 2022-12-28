@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FIT_Api_Examples.Data;
+using FIT_Api_Examples.Helper.AutentifikacijaAutorizacija;
 using FIT_Api_Examples.Modul4_SignalRDemo;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
@@ -37,7 +38,10 @@ namespace FIT_Api_Examples
             services.AddControllers();
 
             // Register the Swagger generator, defining 1 or more Swagger documents
-            services.AddSwaggerGen();
+            services.AddSwaggerGen(c =>
+            {
+                c.OperationFilter<AddAuthorizationHeader>();
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
