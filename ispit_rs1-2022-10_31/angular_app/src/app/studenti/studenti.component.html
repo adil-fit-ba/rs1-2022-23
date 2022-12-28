@@ -76,6 +76,15 @@
           </select>
         </div>
 
+
+        <div class="mb-3">
+          <label class="form-label">Omiljeni predmeti</label>
+          <div class="form-check" *ngFor="let x of predmetPodaci">
+            <input class="form-check-input" type="checkbox" [(ngModel)]="x.jel_selektovan"  [value]="x.id" checked>
+            <label class="form-check-label">{{x.opis}}</label>
+          </div>
+        </div>
+
         <div class="mb-3">
           <label class="form-label">Stara slika</label>
           <img style="display:block;max-width: 100%; height: 200px" src="{{get_slika_base64_FS(odabranistudent)}}">

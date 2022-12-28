@@ -82,7 +82,20 @@ namespace FIT_Api_Examples.Modul2.Controllers
                 //slika se snima na File System
                 Fajlovi.Snimi(slika_bajtovi, "slike_korisnika/" + student.id + ".png");
             }
-           
+
+            if (x.omiljenipredmeti?.Length > 0)
+            {
+                foreach (int predmetid in x.omiljenipredmeti)
+                {
+                    var op = new OmiljeniPredmeti
+                    {
+                        PredmetID = predmetid,
+                        Student = student
+                    };
+                    _dbContext.Add(op);
+                }
+            }
+
             _dbContext.SaveChanges();
 
          

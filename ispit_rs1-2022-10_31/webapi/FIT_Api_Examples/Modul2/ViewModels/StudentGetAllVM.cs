@@ -1,4 +1,6 @@
-﻿namespace FIT_Api_Examples.Modul2.ViewModels
+﻿using System.Reflection.Metadata.Ecma335;
+
+namespace FIT_Api_Examples.Modul2.ViewModels
 {
     public class StudentGetAllVM
     {
@@ -14,5 +16,7 @@
 
         public byte[]? slika_korisnika_postojeca_base64_DB { get; set; }
         public byte[]? slika_korisnika_postojeca_base64_FS { get; set; }
+
+        public int[]? omiljenipredmeti { get; set; }
     }
 }

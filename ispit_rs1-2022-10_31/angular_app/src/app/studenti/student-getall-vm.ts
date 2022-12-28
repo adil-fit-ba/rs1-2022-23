@@ -10,4 +10,5 @@ export interface StudentGetallVM {
   slika_korisnika_nova_base64?: string | null;
   slika_korisnika_postojeca_base64_DB: string;
   slika_korisnika_postojeca_base64_FS: string;
+  omiljenipredmeti:any;
 }

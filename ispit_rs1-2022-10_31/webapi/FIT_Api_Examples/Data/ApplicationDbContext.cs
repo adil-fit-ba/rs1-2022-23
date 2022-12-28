@@ -22,6 +22,7 @@ namespace FIT_Api_Examples.Data
         public DbSet<AkademskaGodina> AkademskaGodina { get; set; }
         public DbSet<UpisAkGodine> UpisAkGodine { get; set; }
         public DbSet<LogKretanjePoSistemu> LogKretanjePoSistemu { get; set; }
+        public DbSet<OmiljeniPredmeti> OmiljeniPredmeti { get; set; }
 
         public ApplicationDbContext(
             DbContextOptions options) : base(options)

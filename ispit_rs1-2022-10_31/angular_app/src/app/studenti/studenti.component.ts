@@ -22,6 +22,7 @@ export class StudentiComponent implements OnInit {
   filter_opstina: boolean=false;
   odabranistudent?: StudentGetallVM | null;
   opstinePodaci: any;
+  predmetPodaci: any;
 
 
   constructor(private httpKlijent: HttpClient, private router: Router, public proba2Servis : SignalRProba2Servis) {
@@ -42,9 +43,18 @@ export class StudentiComponent implements OnInit {
     });
   }
 
+  fetchPredmeti() :void
+  {
+    this.httpKlijent.get(MojConfig.adresa_servera+ "/Predmet/GetAll", MojConfig.http_opcije()).subscribe(x=>{
+      this.predmetPodaci = x;
+    });
+  }
+
+
   ngOnInit(): void {
     this.fetchStudenti();
     this.fetchOpstine();
+    this.fetchPredmeti();
   }
 
   get_podaci_filtrirano() {
@@ -83,19 +93,21 @@ export class StudentiComponent implements OnInit {
   }
 
   novi_student_dugme() {
-    this.odabranistudent =   {
-      id:0,
-      prezime:"",
+    this.odabranistudent = {
+      id: 0,
+      prezime: "",
       ime: this.proba2Servis.ime_prezime,
-      opstina_rodjenja_opis:"",
-      broj_indeksa:"",
-      vrijeme_dodavanja:"",
-      drzava_rodjenja_opis:"",
-      opstina_rodjenja_id:5,
-      slika_korisnika_nova_base64:"",
-      slika_korisnika_postojeca_base64_FS:"",
-      slika_korisnika_postojeca_base64_DB:""
-    };
+      opstina_rodjenja_opis: "",
+      broj_indeksa: "",
+      vrijeme_dodavanja: "",
+      drzava_rodjenja_opis: "",
+      opstina_rodjenja_id: 5,
+      slika_korisnika_nova_base64: "",
+      slika_korisnika_postojeca_base64_FS: "",
+      slika_korisnika_postojeca_base64_DB: "",
+      omiljenipredmeti: []
+    }
+    ;
   }
 
   otvori_maticnuknjigu(s: StudentGetallVM) {
@@ -105,6 +117,7 @@ export class StudentiComponent implements OnInit {
 
   snimi_dugme() {
 
+    this.odabranistudent!.omiljenipredmeti = this.predmetPodaci.filter((a:any)=>a.jel_selektovan).map((p:any)=>p.id);
     this.httpKlijent.post(`${MojConfig.adresa_servera}/Student/Snimi`, this.odabranistudent, MojConfig.http_opcije()).subscribe(x=>{
       this.fetchStudenti();
       this.odabranistudent=null;
