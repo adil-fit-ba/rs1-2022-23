@@ -25,6 +25,38 @@ namespace FIT_Api_Examples.Modul0_Autentifikacija.Controllers
             this._dbContext = dbContext;
         }
 
+        [HttpGet("{code}")]
+        public ActionResult otkljucaj2fLong(string code)
+        {
+            var token = _dbContext.AutentifikacijaToken.FirstOrDefault(s => s.twoFCodeLong == code);
+            if (token != null)
+            {
+                token.twofAktiviran = true;
+                _dbContext.SaveChanges();
+                return Redirect("http://localhost:4200/");
+            }
+
+            return BadRequest("pogresan URL");
+        }
+
+        [HttpGet("{code}")]
+        public ActionResult otkljucaj2fShort(string code)
+        {
+            var korisnickiNalog =  HttpContext.GetLoginInfo().korisnickiNalog;
+            if (korisnickiNalog == null)
+            {
+                return BadRequest("nije logiran");
+            }
+
+            AutentifikacijaToken? token = _dbContext.AutentifikacijaToken.FirstOrDefault(s => s.twoFCodeShort == code && s.korisnickiNalog.id == korisnickiNalog.id );
+            if (token == null)
+                return BadRequest("pogresan token");
+
+            token.twofAktiviran = true;
+            _dbContext.SaveChanges();
+            return Redirect("http://localhost:4200/");
+        }
+
 
         [HttpPost]
         public ActionResult<LoginInformacije> Login([FromBody] LoginVM x)
@@ -42,6 +74,8 @@ namespace FIT_Api_Examples.Modul0_Autentifikacija.Controllers
 
             //2- generisati random string
             string randomString = TokenGenerator.Generate(10);
+            string twoFCodeShort = TokenGenerator.Generate(4);
+            string twoFCodeLong = TokenGenerator.Generate(10);
 
             //3- dodati novi zapis u tabelu AutentifikacijaToken za logiraniKorisnikId i randomString
             var noviToken = new AutentifikacijaToken()
@@ -49,13 +83,15 @@ namespace FIT_Api_Examples.Modul0_Autentifikacija.Controllers
                 ipAdresa = Request.HttpContext.Connection.RemoteIpAddress?.ToString()??"",
                 vrijednost = randomString,
                 korisnickiNalog = logiraniKorisnik,
-                vrijemeEvidentiranja = DateTime.Now
+                vrijemeEvidentiranja = DateTime.Now,
+                twoFCodeShort = twoFCodeShort,
+                twoFCodeLong = twoFCodeLong
             };
 
             _dbContext.Add(noviToken);
             _dbContext.SaveChanges();
 
-            EmailLog.uspjesnoLogiranKorisnik(logiraniKorisnik, Request.HttpContext);
+            EmailLog.uspjesnoLogiranKorisnik(noviToken, Request.HttpContext);
 
             //4- vratiti token string
             return new LoginInformacije(noviToken);

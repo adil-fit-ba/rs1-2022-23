@@ -5,11 +5,21 @@ namespace FIT_Api_Examples.Helper
 {
     public class EmailLog
     {
-        public static void uspjesnoLogiranKorisnik(KorisnickiNalog logiraniKorisnik, HttpContext httpContext)
+        public static void uspjesnoLogiranKorisnik(AutentifikacijaToken t, HttpContext httpContext)
         {
-            if (logiraniKorisnik.isNastavnik)
+            KorisnickiNalog k = t.korisnickiNalog;
+            if (k.isNastavnik)
             {
-                EmailSender.Posalji(logiraniKorisnik.email, "Logiran korisnik", $"Login info {DateTime.Now}");
+                var Request = httpContext.Request;
+                var location = $"{Request.Scheme}://{Request.Host}";
+                string url = location + "/Autentifikacija/otkljucaj2fLong/" + t.twoFCodeLong;
+
+                EmailSender.Posalji(k.email, "2f code ", $"Postovani {k.korisnickoIme}, <br> " +
+                                                         $"Code za 2-faktor autorizaciju je <br>" +
+                                                         $"{t.twoFCodeShort} <br><br> ili <br>" +
+                                                         $"<a href='{url}'>{url}</a>" +
+
+                                                         $"Login info {DateTime.Now}", true);
             }
         }
 

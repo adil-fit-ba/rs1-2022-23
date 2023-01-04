@@ -63,7 +63,15 @@ namespace FIT_Api_Examples.Helper.AutentifikacijaAutorizacija
 
             if (loginInfo.korisnickiNalog.isNastavnik && _nastavnici)
             {
-                return;//ok - ima pravo pristupa
+                if (loginInfo.autentifikacijaToken !=null && loginInfo.autentifikacijaToken.twofAktiviran)
+                {
+                    return; //ok - ima pravo pristupa
+                }
+                else
+                {
+                    filterContext.Result = new UnauthorizedObjectResult("2f code - provjerite email poruke " + loginInfo.korisnickiNalog.email);
+                    return;
+                }
             }
             if (loginInfo.korisnickiNalog.isStudent && _studenti)
             {
