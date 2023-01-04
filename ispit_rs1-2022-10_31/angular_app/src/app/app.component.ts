@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MojConfig} from "./moj-config";
 import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
@@ -15,12 +15,13 @@ declare function porukaError(a: string):any;
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
 
   constructor(private httpKlijent: HttpClient, private router: Router,
               public  probaServis: SignalRProba1Servis) {
     probaServis.otvoriKanalWebSocket();
   }
+
 
   logoutButton() {
 
@@ -38,5 +39,9 @@ export class AppComponent {
 
   loginInfo():LoginInformacije {
     return AutentifikacijaHelper.getLoginInfo();
+  }
+
+  ngOnInit(): void {
+
   }
 }

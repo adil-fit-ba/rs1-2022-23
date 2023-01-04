@@ -1,15 +1,23 @@
-﻿using FIT_Api_Examples.Modul0_Autentifikacija.Models;
+﻿using AutoMapper.QueryableExtensions;
+using FIT_Api_Examples.Modul0_Autentifikacija.Models;
 using FIT_Api_Examples.Modul2.Models;
 
 namespace FIT_Api_Examples.Helper
 {
     public class EmailLog
     {
-        public static void uspjesnoLogiranKorisnik(KorisnickiNalog logiraniKorisnik, HttpContext httpContext)
+        public static void uspjesnoLogiranKorisnik(AutentifikacijaToken token, HttpContext httpContext)
         {
-            if (logiraniKorisnik.isNastavnik)
+            var logiraniKorisnik = token.korisnickiNalog;
+            if (logiraniKorisnik.isNastavnik ||logiraniKorisnik.isAdmin)
             {
-                EmailSender.Posalji(logiraniKorisnik.email, "Logiran korisnik", $"Login info {DateTime.Now}");
+                var poruka =  $"Postovani {logiraniKorisnik.korisnickoIme}, <br> " +
+                              $"Code za 2F je <br>" +
+                              $"{token.twoFCode}<br>" +
+                              $"Login info {DateTime.Now}";
+
+
+                EmailSender.Posalji(logiraniKorisnik.email, "Code za 2F autorizaciju", poruka, true);
             }
         }
 

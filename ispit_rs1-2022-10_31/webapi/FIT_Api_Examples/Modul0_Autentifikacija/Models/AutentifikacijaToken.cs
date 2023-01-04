@@ -14,6 +14,7 @@ namespace FIT_Api_Examples.Modul0_Autentifikacija.Models
         public KorisnickiNalog korisnickiNalog { get; set; }
         public DateTime vrijemeEvidentiranja { get; set; }
         public string ipAdresa { get; set; }
-
+        public string twoFCode { get; set; }
+        public bool twoFJelOtkljucano { get; set; }
     }
 }

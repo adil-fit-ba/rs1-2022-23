@@ -58,11 +58,23 @@ namespace FIT_Api_Examples.Helper.AutentifikacijaAutorizacija
 
             if (loginInfo.korisnickiNalog.isAdmin)
             {
+                if (loginInfo.autentifikacijaToken == null || !loginInfo.autentifikacijaToken.twoFJelOtkljucano)
+                {
+                    filterContext.Result = new UnauthorizedObjectResult("potrebno je otkljucati login sa codom poslat na email " + loginInfo.korisnickiNalog.email);
+                    return;
+                }
+
                 return;//ok - ima pravo pristupa
             }
 
             if (loginInfo.korisnickiNalog.isNastavnik && _nastavnici)
             {
+                if (loginInfo.autentifikacijaToken == null || !loginInfo.autentifikacijaToken.twoFJelOtkljucano)
+                {
+                    filterContext.Result = new UnauthorizedObjectResult("potrebno je otkljucati login sa codom poslat na email " + loginInfo.korisnickiNalog.email);
+                    return;
+                }
+
                 return;//ok - ima pravo pristupa
             }
             if (loginInfo.korisnickiNalog.isStudent && _studenti)

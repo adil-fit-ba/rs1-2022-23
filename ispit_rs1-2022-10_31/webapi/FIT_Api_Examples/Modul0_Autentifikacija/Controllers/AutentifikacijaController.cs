@@ -25,6 +25,26 @@ namespace FIT_Api_Examples.Modul0_Autentifikacija.Controllers
             this._dbContext = dbContext;
         }
 
+        [HttpGet("{code}")]
+        public ActionResult Otkljucaj(string code)
+        {
+            var korisnickiNalog= HttpContext.GetLoginInfo().korisnickiNalog;
+
+            if (korisnickiNalog == null)
+            {
+                return BadRequest("korisnik nije logiran");
+            }
+
+            var token = _dbContext.AutentifikacijaToken.FirstOrDefault(s => s.twoFCode == code && s.KorisnickiNalogId == korisnickiNalog.id);
+            if (token != null)
+            {
+                token.twoFJelOtkljucano = true;
+                _dbContext.SaveChanges();
+                return Redirect("http://localhost:4200/");
+            }
+
+            return BadRequest("pogresan URL");
+        }
 
         [HttpPost]
         public ActionResult<LoginInformacije> Login([FromBody] LoginVM x)
@@ -42,6 +62,7 @@ namespace FIT_Api_Examples.Modul0_Autentifikacija.Controllers
 
             //2- generisati random string
             string randomString = TokenGenerator.Generate(10);
+            string twoFCode = TokenGenerator.Generate(4);
 
             //3- dodati novi zapis u tabelu AutentifikacijaToken za logiraniKorisnikId i randomString
             var noviToken = new AutentifikacijaToken()
@@ -49,13 +70,14 @@ namespace FIT_Api_Examples.Modul0_Autentifikacija.Controllers
                 ipAdresa = Request.HttpContext.Connection.RemoteIpAddress?.ToString()??"",
                 vrijednost = randomString,
                 korisnickiNalog = logiraniKorisnik,
-                vrijemeEvidentiranja = DateTime.Now
+                vrijemeEvidentiranja = DateTime.Now,
+                twoFCode = twoFCode
             };
 
             _dbContext.Add(noviToken);
             _dbContext.SaveChanges();
 
-            EmailLog.uspjesnoLogiranKorisnik(logiraniKorisnik, Request.HttpContext);
+            EmailLog.uspjesnoLogiranKorisnik(noviToken, Request.HttpContext);
 
             //4- vratiti token string
             return new LoginInformacije(noviToken);

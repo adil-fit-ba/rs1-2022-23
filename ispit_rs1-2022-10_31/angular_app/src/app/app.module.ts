@@ -13,6 +13,8 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { StudentMaticnaknjigaComponent } from './student-maticnaknjiga/student-maticnaknjiga.component';
 import { StudentEditComponent } from './studenti/student-edit/student-edit.component';
 import { PostavkeProfilaComponent } from './postavke-profila/postavke-profila.component';
+import { UserNotActiveComponent } from './user-not-active/user-not-active.component';
+import { TwoFOtkljucajComponent } from './two-f-otkljucaj/two-f-otkljucaj.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,14 +26,18 @@ import { PostavkeProfilaComponent } from './postavke-profila/postavke-profila.co
     StudentMaticnaknjigaComponent,
     StudentEditComponent,
     PostavkeProfilaComponent,
+    UserNotActiveComponent,
+    TwoFOtkljucajComponent,
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot([
-      {path: 'studenti', component: StudentiComponent},
+      {path: 'two-f-otkljucaj', component: TwoFOtkljucajComponent},
+      {path: 'user-not-active', component: UserNotActiveComponent},
+      {path: 'studenti', component: StudentiComponent, canActivate: [AutorizacijaLoginProvjera]},
       {path: 'login', component: LoginComponent},
       {path: 'registracija', component: RegistracijaComponent},
-      {path: 'student-maticnaknjiga/:studentidbroj', component: StudentMaticnaknjigaComponent},
+      {path: 'student-maticnaknjiga/:studentidbroj', component: StudentMaticnaknjigaComponent, canActivate: [AutorizacijaLoginProvjera]},
       {path: 'home', component: HomeComponent, canActivate: [AutorizacijaLoginProvjera]},
       {path: 'postavke-profila', component: PostavkeProfilaComponent, canActivate: [AutorizacijaLoginProvjera]},
       {path: '**', component: NotFoundComponent, canActivate: [AutorizacijaLoginProvjera]},

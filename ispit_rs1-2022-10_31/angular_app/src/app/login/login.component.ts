@@ -33,7 +33,9 @@ export class LoginComponent implements OnInit {
         if (x.isLogiran) {
           porukaSuccess("uspjesan login");
           AutentifikacijaHelper.setLoginInfo(x)
-          this.router.navigateByUrl("/studenti");
+
+          if (x.autentifikacijaToken?.korisnickiNalog.isAdmin || x.autentifikacijaToken?.korisnickiNalog.isNastavnik)
+          this.router.navigateByUrl("/two-f-otkljucaj");
 
         }
         else
