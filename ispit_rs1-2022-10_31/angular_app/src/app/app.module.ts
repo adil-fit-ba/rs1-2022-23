@@ -15,6 +15,7 @@ import { StudentEditComponent } from './studenti/student-edit/student-edit.compo
 import { PostavkeProfilaComponent } from './postavke-profila/postavke-profila.component';
 import { UserNotActiveComponent } from './user-not-active/user-not-active.component';
 import { TwoFOtkljucajComponent } from './two-f-otkljucaj/two-f-otkljucaj.component';
+import { SrijedaComponent } from './srijeda/srijeda.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,6 +29,7 @@ import { TwoFOtkljucajComponent } from './two-f-otkljucaj/two-f-otkljucaj.compon
     PostavkeProfilaComponent,
     UserNotActiveComponent,
     TwoFOtkljucajComponent,
+    SrijedaComponent,
   ],
   imports: [
     BrowserModule,

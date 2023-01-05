@@ -23,6 +23,7 @@ export class StudentiComponent implements OnInit {
   odabranistudent?: StudentGetallVM | null;
   opstinePodaci: any;
   predmetPodaci: any;
+  ime_u_student_comp: string="";
 
 
   constructor(private httpKlijent: HttpClient, private router: Router, public proba2Servis : SignalRProba2Servis) {
@@ -158,4 +159,11 @@ export class StudentiComponent implements OnInit {
     }
   }
 
+  dugmeD() {
+    //let v = Math.floor(Math.random() * 10);
+
+   // this.ime_u_student_comp = "kako si " +  v
+
+    alert(this.ime_u_student_comp);
+  }
 }

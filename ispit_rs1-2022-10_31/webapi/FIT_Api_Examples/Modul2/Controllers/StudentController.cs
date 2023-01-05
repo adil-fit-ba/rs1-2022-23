@@ -74,13 +74,17 @@ namespace FIT_Api_Examples.Modul2.Controllers
             {
                 //slika se snima u db
                 byte[]? slika_bajtovi = x.slika_korisnika_nova_base64?.ParsirajBase64();
-                student.slika_korisnika_bajtovi = slika_bajtovi;
 
                 if (slika_bajtovi == null)
                     return BadRequest("format slike nije base64");
 
+
+                byte[]? slika_bajtovi_resized = Slike.resize(slika_bajtovi, 200);
+                student.slika_korisnika_bajtovi = slika_bajtovi_resized;
+
+
                 //slika se snima na File System
-                Fajlovi.Snimi(slika_bajtovi, "slike_korisnika/" + student.id + ".png");
+                Fajlovi.Snimi(slika_bajtovi_resized, "slike_korisnika/" + student.id + ".jpg");
             }
 
             if (x.omiljenipredmeti?.Length > 0)

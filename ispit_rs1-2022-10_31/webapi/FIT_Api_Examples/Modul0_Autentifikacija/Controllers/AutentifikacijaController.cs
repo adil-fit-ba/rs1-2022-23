@@ -11,6 +11,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using static FIT_Api_Examples.Helper.AutentifikacijaAutorizacija.MyAuthTokenExtension;
 
+
+
 namespace FIT_Api_Examples.Modul0_Autentifikacija.Controllers
 {
     //[Authorize]
@@ -40,7 +42,7 @@ namespace FIT_Api_Examples.Modul0_Autentifikacija.Controllers
             {
                 token.twoFJelOtkljucano = true;
                 _dbContext.SaveChanges();
-                return Redirect("http://localhost:4200/");
+                return Ok();
             }
 
             return BadRequest("pogresan URL");
