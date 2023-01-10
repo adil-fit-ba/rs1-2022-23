@@ -52,6 +52,10 @@ namespace FIT_Api_Examples.Helper.AutentifikacijaAutorizacija
             if (!loginInfo.korisnickiNalog.isAktiviran)
             {
                 filterContext.Result = new UnauthorizedObjectResult("korisnik nije aktiviran - provjerite email poruke " + loginInfo.korisnickiNalog.email);
+              
+                //ponovo posalji email za aktivaciju
+                if (loginInfo.korisnickiNalog.nastavnik!=null)
+                    EmailLog.noviNastavnik(loginInfo.korisnickiNalog.nastavnik, filterContext.HttpContext);
                 return;
             }
 
