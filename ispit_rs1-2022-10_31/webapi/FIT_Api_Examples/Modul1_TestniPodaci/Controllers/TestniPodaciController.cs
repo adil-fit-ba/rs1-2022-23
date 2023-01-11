@@ -110,10 +110,13 @@ namespace FIT_Api_Examples.Modul1_TestniPodaci.Controllers
                    created_time=DateTime.Now,
                    ime = TokenGenerator.GenerisiIme(5),
                    prezime = TokenGenerator.GenerisiIme(5),
-                   korisnickoIme = TokenGenerator.GenerisiIme(5),
+                   korisnickoIme = $"student{i:d}",
                    lozinka="test",
                    opstina_rodjenja=opstine.GetRandomElements(1)[0],
-                   email = "adil@edu.fit.ba"
+                   email = "adil@edu.fit.ba",
+                   aktivacijaGUID = Guid.NewGuid().ToString(),
+                   isAktiviran = true
+
                 });
             }
 

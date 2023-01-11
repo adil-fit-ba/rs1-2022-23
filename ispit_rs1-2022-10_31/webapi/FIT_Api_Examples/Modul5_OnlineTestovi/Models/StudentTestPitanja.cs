@@ -10,6 +10,7 @@ namespace FIT_Api_Examples.Modul5_OnlineTestovi.Models
         public int ID { get; set; }
 
         [ForeignKey(nameof(StudentTestID))]
+        [JsonIgnore]
         public virtual StudentTest StudentTest { get; set; } = null!;
         public int StudentTestID { get; set; }
 

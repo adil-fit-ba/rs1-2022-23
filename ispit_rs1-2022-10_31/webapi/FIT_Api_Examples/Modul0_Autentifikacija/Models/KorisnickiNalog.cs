@@ -32,6 +32,7 @@ namespace FIT_Api_Examples.Modul0_Autentifikacija.Models
 
         public byte[]? slika_korisnika_bajtovi { get; set; }
         public bool isAktiviran { get; set; }
+        [JsonIgnore]
         public string? aktivacijaGUID { get; set; }
     }
 }
