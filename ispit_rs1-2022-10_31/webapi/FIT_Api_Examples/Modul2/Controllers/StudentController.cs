@@ -84,7 +84,8 @@ namespace FIT_Api_Examples.Modul2.Controllers
 
 
                 //slika se snima na File System
-                Fajlovi.Snimi(slika_bajtovi_resized, "slike_korisnika/" + student.id + ".jpg");
+                if (slika_bajtovi_resized != null)
+                    Fajlovi.Snimi(slika_bajtovi_resized, "slike_korisnika/" + student.id + ".jpg");
             }
 
             if (x.omiljenipredmeti?.Length > 0)
