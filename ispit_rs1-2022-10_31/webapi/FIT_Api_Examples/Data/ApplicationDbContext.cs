@@ -1,7 +1,6 @@
 ﻿using FIT_Api_Examples.Modul0_Autentifikacija.Models;
 using FIT_Api_Examples.Modul2.Models;
 using FIT_Api_Examples.Modul3_MaticnaKnjiga.Models;
-using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 

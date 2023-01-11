@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using System.Text.Json.Serialization;
-using AutoMapper.QueryableExtensions;
 using FIT_Api_Examples.Data;
 using FIT_Api_Examples.Modul0_Autentifikacija.Models;
 using Microsoft.AspNetCore.Http;

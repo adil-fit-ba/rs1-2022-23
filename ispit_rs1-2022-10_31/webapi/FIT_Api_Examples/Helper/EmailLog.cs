@@ -1,5 +1,4 @@
-﻿using AutoMapper.QueryableExtensions;
-using FIT_Api_Examples.Modul0_Autentifikacija.Models;
+﻿using FIT_Api_Examples.Modul0_Autentifikacija.Models;
 using FIT_Api_Examples.Modul2.Models;
 
 namespace FIT_Api_Examples.Helper
