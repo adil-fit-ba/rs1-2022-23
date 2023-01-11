@@ -49,6 +49,15 @@
   </tbody>
 </table>
 
+<nav aria-label="Page navigation example">
+  <ul class="pagination">
+    <li class="page-item"><a class="page-link" style="cursor: pointer" (click)="goToPrev()">Previous</a></li>
+    <li *ngFor="let p of pageNumbersArray()" class="page-item" [ngClass]="p == currentPage?'active':''" (click)="goToPage(p)"><Button class="page-link" >{{p}}</Button></li>
+    <li class="page-item"><a class="page-link" style="cursor: pointer" (click)="goToNext()">Next</a></li>
+  </ul>
+</nav>
+
+
 <button class="form-label" (click)="novi_student_dugme()">Novi student</button>
 
 

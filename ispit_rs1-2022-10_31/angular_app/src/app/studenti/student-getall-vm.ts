@@ -12,3 +12,13 @@ export interface StudentGetallVM {
   slika_korisnika_postojeca_base64_FS: string;
   omiljenipredmeti:any;
 }
+
+export interface StudentGetallVMPagedList {
+  dataItems: StudentGetallVM[];
+  currentPage: number;
+  totalPages: number;
+  pageSize: number;
+  totalCount: number;
+  hasPrevios: boolean;
+  hasNext: boolean;
+}

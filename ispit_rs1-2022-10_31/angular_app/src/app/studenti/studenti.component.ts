@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {MojConfig} from "../moj-config";
 import {Router} from "@angular/router";
-import {StudentGetallVM} from "./student-getall-vm";
+import {StudentGetallVM, StudentGetallVMPagedList} from "./student-getall-vm";
 import {SignalRProba2Servis} from "../_servisi/signal-r-proba2-servis.service";
 declare function porukaSuccess(a: string):any;
 declare function porukaError(a: string):any;
@@ -15,9 +15,10 @@ declare function porukaError(a: string):any;
 export class StudentiComponent implements OnInit {
 
   title:string = 'angularFIT2';
+  currentPage: number=1;
 
   opstina: string = '';
-  studentPodaci: StudentGetallVM[] = [];
+  studentPodaci?: StudentGetallVMPagedList | null;
   filter_ime_prezime: boolean=false;
   filter_opstina: boolean=false;
   odabranistudent?: StudentGetallVM | null;
@@ -26,13 +27,29 @@ export class StudentiComponent implements OnInit {
   ime_u_student_comp: string="";
 
 
+  public pageNumbersArray():number[]{
+    let result=[];
+
+    for (let i = 0; i < this.totalPages(); i++)
+      result.push(i+1);
+    return result;
+  }
+
+  private totalPages() {
+    if (this.studentPodaci != null)
+      return this.studentPodaci!.totalPages ;
+
+    return 1;
+  }
+
+
   constructor(private httpKlijent: HttpClient, private router: Router, public proba2Servis : SignalRProba2Servis) {
     proba2Servis.otvoriKanalWebSocket();
   }
 
   fetchStudenti() :void
   {
-    this.httpKlijent.get<StudentGetallVM>(MojConfig.adresa_servera+ "/Student/GetAll", MojConfig.http_opcije()).subscribe((x:any)=>{
+    this.httpKlijent.get<StudentGetallVMPagedList>(MojConfig.adresa_servera+ "/Student/GetAll?pageNumber=" + this.currentPage, MojConfig.http_opcije()).subscribe((x:any)=>{
       this.studentPodaci = x;
     });
   }
@@ -62,7 +79,7 @@ export class StudentiComponent implements OnInit {
       if (this.studentPodaci == null)
         return [];
 
-    return this.studentPodaci.filter((a:any)=>
+    return this.studentPodaci.dataItems.filter((a:any)=>
       (!this.filter_ime_prezime ||
 
       (a.ime + " " +a.prezime).startsWith(this.proba2Servis.ime_prezime)
@@ -165,5 +182,20 @@ export class StudentiComponent implements OnInit {
    // this.ime_u_student_comp = "kako si " +  v
 
     alert(this.ime_u_student_comp);
+  }
+
+  goToPage(p: number) {
+    this.currentPage = p;
+    this.fetchStudenti();
+  }
+
+  goToPrev() {
+    if (this.currentPage > 1)
+      this.currentPage--;
+  }
+
+  goToNext() {
+    if (this.currentPage < this.totalPages())
+      this.currentPage++
   }
 }

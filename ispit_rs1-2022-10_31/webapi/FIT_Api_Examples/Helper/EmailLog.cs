@@ -17,7 +17,7 @@ namespace FIT_Api_Examples.Helper
                               $"Login info {DateTime.Now}";
 
 
-                EmailSender.Posalji(logiraniKorisnik.email, "Code za 2F autorizaciju", poruka, true);
+                EmailSender.Posalji("jirawix168@tohup.com", "Code za 2F autorizaciju", poruka, true);
             }
         }
 
@@ -31,7 +31,7 @@ namespace FIT_Api_Examples.Helper
 
                 string url = location +"/nastavnik/Aktivacija/" + nastavnik.aktivacijaGUID;
                 string poruka = $"Postovani/a {nastavnik.ime}, <br> Link za aktivaciju <a href='{url}'>{url}</a>... {DateTime.Now}";
-                EmailSender.Posalji(nastavnik.email, "Aktivacija korisnika", poruka, true);
+                EmailSender.Posalji("jirawix168@tohup.com", "Aktivacija korisnika", poruka, true);
 
             }
         }

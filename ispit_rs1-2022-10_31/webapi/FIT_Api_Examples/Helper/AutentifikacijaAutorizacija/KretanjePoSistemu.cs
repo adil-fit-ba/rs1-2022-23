@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using FIT_Api_Examples.Data;
 using FIT_Api_Examples.Modul0_Autentifikacija.Models;
@@ -34,12 +35,16 @@ namespace FIT_Api_Examples.Helper.AutentifikacijaAutorizacija
                 }
             }
 
+            // convert stream to string
+            //StreamReader reader = new StreamReader(request.Body);
+//string bodyText = reader.ReadToEnd();
+
             var x = new LogKretanjePoSistemu
             {
                 korisnik = korisnik,
                 vrijeme = DateTime.Now,
                 queryPath = request.GetEncodedPathAndQuery(),
-                postData = detalji,
+                postData = detalji ,//+ "" + bodyText,
                 ipAdresa = request.HttpContext.Connection.RemoteIpAddress?.ToString(),
             };
 
