@@ -124,7 +124,7 @@ namespace FIT_Api_Examples.Modul2.Controllers
         [Autorizacija(studentskaSluzba: true, prodekan: true, dekan: true, studenti: false, nastavnici: true)]
         public ActionResult GetAll(string? ime_prezime, int pageNumber=1, int pageSize=20)
         {
-            IQueryable<StudentGetAllVM> data = _dbContext.Student
+            var data = _dbContext.Student
                 .Include(s=>s.opstina_rodjenja.drzava)
                 .Where(x => ime_prezime == null || (x.ime + " " + x.prezime).StartsWith(ime_prezime) || (x.prezime + " " + x.ime).StartsWith(ime_prezime))
                 .OrderByDescending(s => s.id)
