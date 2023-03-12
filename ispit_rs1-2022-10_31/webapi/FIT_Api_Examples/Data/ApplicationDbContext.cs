@@ -1,7 +1,7 @@
 ﻿using FIT_Api_Examples.Modul0_Autentifikacija.Models;
 using FIT_Api_Examples.Modul2.Models;
 using FIT_Api_Examples.Modul3_MaticnaKnjiga.Models;
-using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
+using FIT_Api_Examples.Modul5_OnlineTestovi.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
@@ -9,18 +9,28 @@ namespace FIT_Api_Examples.Data
 {
     public class ApplicationDbContext : DbContext
     {
-        public DbSet<Drzava> Drzava { get; set; }
-        public DbSet<Opstina> Opstina { get; set; }
-        public DbSet<Student> Student { get; set; }
-        public DbSet<Predmet> Predmet { get; set; }
-        public DbSet<Ispit> Ispit { get; set; }
-        public DbSet<PrijavaIspita> PrijavaIspita{ get; set; }
-        public DbSet<AutentifikacijaToken> AutentifikacijaToken{ get; set; }
-        public DbSet<Nastavnik> Nastavnik{ get; set; }
-        public DbSet<KorisnickiNalog> KorisnickiNalog{ get; set; }
-        public DbSet<Obavijest> Obavijest{ get; set; }
-        public DbSet<AkademskaGodina> AkademskaGodina { get; set; }
-        public DbSet<UpisAkGodine> AkGodines { get; set; }
+        public DbSet<Drzava> Drzava { get; set; } = null!;
+        public DbSet<Opstina> Opstina { get; set; } = null!;
+        public DbSet<Student> Student { get; set; } = null!;
+        public DbSet<Predmet> Predmet { get; set; } = null!;
+        public DbSet<Ispit> Ispit { get; set; } = null!;
+        public DbSet<PrijavaIspita> PrijavaIspita{ get; set; } = null!;
+        public DbSet<AutentifikacijaToken> AutentifikacijaToken{ get; set; } = null!;
+        public DbSet<Nastavnik> Nastavnik{ get; set; } = null!;
+        public DbSet<KorisnickiNalog> KorisnickiNalog{ get; set; } = null!;
+        public DbSet<Obavijest> Obavijest{ get; set; } = null!;
+        public DbSet<AkademskaGodina> AkademskaGodina { get; set; } = null!;
+        public DbSet<UpisAkGodine> UpisAkGodine { get; set; } = null!;
+        public DbSet<LogKretanjePoSistemu> LogKretanjePoSistemu { get; set; } = null!;
+        public DbSet<OmiljeniPredmeti> OmiljeniPredmeti { get; set; } = null!;
+
+        public DbSet<AktivacijaTesta> AktivacijaTesta { get; set; } = null!;
+        public DbSet<PitanjaPonudjeneOpcije> PitanjaPonudjeneOpcije { get; set; } = null!;
+        public DbSet<Pitanje> Pitanje { get; set; } = null!;
+        public DbSet<PredmetOblast> PredmetOblast { get; set; } = null!;
+        public DbSet<StudentTest> StudentTest { get; set; } = null!;
+        public DbSet<StudentTestPitanja> StudentTestPitanja { get; set; } = null!;
+
 
         public ApplicationDbContext(
             DbContextOptions options) : base(options)
@@ -36,6 +46,12 @@ namespace FIT_Api_Examples.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
+            {
+                relationship.DeleteBehavior = DeleteBehavior.NoAction;
+            }
+
+
             base.OnModelCreating(modelBuilder);
             //ovdje pise FluentAPI konfiguraciju
 

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {MojConfig} from "../moj-config";
 import {HttpClient} from "@angular/common/http";
+import {StudentGetallVM} from "../studenti/student-getall-vm";
+import {MaticnaKnjigaVM} from "./maticna-knjiga-vm";
 
 declare function porukaSuccess(a: string):any;
 declare function porukaError(a: string):any;
@@ -12,8 +14,8 @@ declare function porukaError(a: string):any;
   styleUrls: ['./student-maticnaknjiga.component.css']
 })
 export class StudentMaticnaknjigaComponent implements OnInit {
-   studentid: number;
-  maticnaknjigapodaci: any;
+   studentid: number=0;
+   podaci?:MaticnaKnjigaVM;
 
   constructor(private httpKlijent: HttpClient, private route: ActivatedRoute) {}
 
@@ -34,23 +36,20 @@ export class StudentMaticnaknjigaComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.studentid = +params['studentidbroj']; // (+) converts string 'id' to a number
 
-      this.fetchMaticnaKnjigaDetalji();
-
       //fetch detalji o studentu
         //-- upisani semestri
         //-- ocjene, uplate itd.
       //class UpisAkademskaGodina
       //studentid, akademskaGodinaid, godina_studija, cijena_skolarine, bool obnova, datum_upisazimski
-    });
-  }
 
-  fetchMaticnaKnjigaDetalji() {
-    this.httpKlijent.get(MojConfig.adresa_servera+ "/MaticnaKnjiga/GetByID?studentid="+this.studentid, MojConfig.http_opcije()).subscribe(x=>{
-      this.maticnaknjigapodaci = x;
+      this.fetchMaticnaKnjigaDetalji();
     });
   }
 
 
-
-
+  private fetchMaticnaKnjigaDetalji() {
+    this.httpKlijent.get<MaticnaKnjigaVM>(MojConfig.adresa_servera+ "/MaticnaKnjigaDetalji/GetById?studentid="+this.studentid, MojConfig.http_opcije()).subscribe((x:any)=>{
+      this.podaci = x
+    });
+  }
 }

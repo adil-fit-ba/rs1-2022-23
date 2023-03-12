@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using FIT_Api_Examples.Data;
 using FIT_Api_Examples.Modul0_Autentifikacija.Models;
@@ -13,16 +14,16 @@ namespace FIT_Api_Examples.Helper.AutentifikacijaAutorizacija
 {
     public class KretanjePoSistemu
     {
-        public static int Save(HttpContext httpContext, IExceptionHandlerPathFeature exceptionMessage = null)
+        public static int Save(HttpContext httpContext, IExceptionHandlerPathFeature? exceptionMessage = null)
         {
-            KorisnickiNalog korisnik = httpContext.GetLoginInfo().korisnickiNalog;
+            KorisnickiNalog? korisnik = httpContext.GetLoginInfo().korisnickiNalog;
 
             var request = httpContext.Request;
 
             var queryString = request.Query;
 
-            if (queryString.Count == 0 && !request.HasFormContentType)
-                return 0;
+            //if (queryString.Count == 0 && !request.HasFormContentType)
+            //    return 0;
 
             //IHttpRequestFeature feature = request.HttpContext.Features.Get<IHttpRequestFeature>();
             string detalji = "";
@@ -34,12 +35,16 @@ namespace FIT_Api_Examples.Helper.AutentifikacijaAutorizacija
                 }
             }
 
+            // convert stream to string
+            //StreamReader reader = new StreamReader(request.Body);
+//string bodyText = reader.ReadToEnd();
+
             var x = new LogKretanjePoSistemu
             {
                 korisnik = korisnik,
                 vrijeme = DateTime.Now,
                 queryPath = request.GetEncodedPathAndQuery(),
-                postData = detalji,
+                postData = detalji ,//+ "" + bodyText,
                 ipAdresa = request.HttpContext.Connection.RemoteIpAddress?.ToString(),
             };
 

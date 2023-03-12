@@ -1,7 +1,7 @@
 
 
 export class LoginInformacije {
-  autentifikacijaToken:        AutentifikacijaToken=null;
+  autentifikacijaToken?:        AutentifikacijaToken|null=null;
   isLogiran:                   boolean=false;
 }
 
@@ -12,6 +12,7 @@ export interface AutentifikacijaToken {
   korisnickiNalog:      KorisnickiNalog;
   vrijemeEvidentiranja: Date;
   ipAdresa:             string;
+
 }
 
 export interface KorisnickiNalog {
@@ -24,4 +25,6 @@ export interface KorisnickiNalog {
   isProdekan:         boolean;
   isDekan:            boolean;
   isStudentskaSluzba: boolean;
+  isAktiviran: boolean;
+  email:             string;
 }

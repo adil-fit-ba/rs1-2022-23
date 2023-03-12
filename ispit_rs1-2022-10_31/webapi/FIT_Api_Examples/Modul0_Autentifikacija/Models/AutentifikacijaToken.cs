@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace FIT_Api_Examples.Modul0_Autentifikacija.Models
 {
@@ -15,5 +16,8 @@ namespace FIT_Api_Examples.Modul0_Autentifikacija.Models
         public DateTime vrijemeEvidentiranja { get; set; }
         public string ipAdresa { get; set; }
 
+        [JsonIgnore]
+        public string twoFCode { get; set; }
+        public bool twoFJelOtkljucano { get; set; }
     }
 }

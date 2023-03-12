@@ -1,0 +1,49 @@
+<h2>Hello FIT {{ime}}</h2>
+
+<input [(ngModel)]="ime">
+
+<button (click)="dugme1()">Dugme1</button>
+
+
+<button (click)="preuzmi()">Preuzmi podatke</button>
+
+
+<table class="table table-bordered" *ngIf="podaci.length>0">
+  <thead>
+  <tr>
+    <th>Naziv</th>
+    <th>ECTS</th>
+    <th>Prosjecna ocjena</th>
+  </tr>
+  </thead>
+
+  <tbody>
+
+
+  <tr *ngFor="let p of podaci">
+    <td>
+      {{p.naziv}}
+    </td>
+    <td>
+      {{p.ects}}
+    </td>
+    <td>
+      {{p.prosjecnaOcjena}}
+    </td>
+    <td>
+      <button (click)="odabraniPredmet=p">Uredi</button>
+    </td>
+
+  </tr>
+  </tbody>
+</table>
+
+<div *ngIf="odabraniPredmet != null">
+
+
+  <label>Naziv</label>
+  <input [(ngModel)]="odabraniPredmet.naziv">
+
+  <label>ECTS</label>
+  <input [(ngModel)]="odabraniPredmet.ects">
+</div>

@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using System.Text.Json.Serialization;
-using AutoMapper.QueryableExtensions;
 using FIT_Api_Examples.Data;
 using FIT_Api_Examples.Modul0_Autentifikacija.Models;
 using Microsoft.AspNetCore.Http;
@@ -13,14 +12,14 @@ namespace FIT_Api_Examples.Helper.AutentifikacijaAutorizacija
     {
         public class LoginInformacije
         {
-            public LoginInformacije(AutentifikacijaToken autentifikacijaToken)
+            public LoginInformacije(AutentifikacijaToken? autentifikacijaToken)
             {
                 this.autentifikacijaToken = autentifikacijaToken;
             }
 
             [JsonIgnore]
-            public KorisnickiNalog korisnickiNalog => autentifikacijaToken?.korisnickiNalog;
-            public AutentifikacijaToken autentifikacijaToken { get; set; }
+            public KorisnickiNalog? korisnickiNalog => autentifikacijaToken?.korisnickiNalog;
+            public AutentifikacijaToken? autentifikacijaToken { get; set; }
             
             public bool isLogiran => korisnickiNalog != null;
          
@@ -34,14 +33,14 @@ namespace FIT_Api_Examples.Helper.AutentifikacijaAutorizacija
             return new LoginInformacije(token);
         }
     
-        public static AutentifikacijaToken GetAuthToken(this HttpContext httpContext)
+        public static AutentifikacijaToken? GetAuthToken(this HttpContext httpContext)
         {
             string token = httpContext.GetMyAuthToken();
-            ApplicationDbContext db = httpContext.RequestServices.GetService<ApplicationDbContext>();
+            ApplicationDbContext? db = httpContext.RequestServices.GetService<ApplicationDbContext>();
 
-            AutentifikacijaToken korisnickiNalog = db.AutentifikacijaToken
+            AutentifikacijaToken? korisnickiNalog = db?.AutentifikacijaToken
                 .Include(s=>s.korisnickiNalog)
-                .SingleOrDefault(x => token != null && x.vrijednost == token);
+                .SingleOrDefault(x =>  x.vrijednost == token);
             
             return korisnickiNalog;
         }

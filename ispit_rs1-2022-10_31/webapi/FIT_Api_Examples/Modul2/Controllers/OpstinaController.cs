@@ -23,11 +23,9 @@ namespace FIT_Api_Examples.Modul2.Controllers
         }
 
         [HttpPost]
+        [Autorizacija(studentskaSluzba: true, prodekan: true, dekan: true, studenti: false, nastavnici: true)]
         public ActionResult<Opstina> Add([FromBody] OpstinaAddVM x)
         {
-            if (!HttpContext.GetLoginInfo().isLogiran)
-                return BadRequest("nije logiran");
-
             var opstina = new Opstina
             {
                 description = x.opis,
@@ -40,31 +38,31 @@ namespace FIT_Api_Examples.Modul2.Controllers
         }
 
         [HttpGet]
-        public List<CmbStavke> GetByDrzava(int drzava_id)
+        public ActionResult GetByDrzava(int drzava_id)
         {
             var data = _dbContext.Opstina.Where(x => x.drzava_id == drzava_id)
                 .OrderBy(s => s.description)
-                .Select(s => new CmbStavke()
-                {
+                .Select(s => new {
                     id = s.id,
                     opis = s.drzava.naziv + " - " + s.description,
                 })
-                .AsQueryable();
-            return data.Take(100).ToList();
+                .ToList();
+            return Ok(data);
         }
 
         [HttpGet]
-        public List<CmbStavke> GetByAll()
+        [Autorizacija(studentskaSluzba: true, prodekan: true, dekan: true, studenti: true, nastavnici: true)]
+        public ActionResult GetByAll()
         {
             var data = _dbContext.Opstina
                 .OrderBy(s => s.description)
-                .Select(s => new CmbStavke()
+                .Select(s => new 
                 {
                     id = s.id,
                     opis = s.drzava.naziv + " - " + s.description,
                 })
-                .AsQueryable();
-            return data.Take(100).ToList();
+                .ToList();
+            return Ok(data);
         }
     }
 }

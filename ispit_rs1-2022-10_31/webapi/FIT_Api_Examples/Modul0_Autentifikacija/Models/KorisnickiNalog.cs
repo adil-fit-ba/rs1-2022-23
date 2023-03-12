@@ -14,22 +14,24 @@ namespace FIT_Api_Examples.Modul0_Autentifikacija.Models
         [Key]
         public int id { get; set; }
         public string korisnickoIme { get; set; }
+        public string email { get; set; }
         [JsonIgnore]
         public string lozinka { get; set; }
-        public string slika_korisnika { get; set; }
 
         [JsonIgnore]
-        public Student student => this as Student;
+        public Student? student => this as Student;
 
         [JsonIgnore]
-        public Nastavnik nastavnik => this as Nastavnik;
+        public Nastavnik? nastavnik => this as Nastavnik;
         public bool isNastavnik => nastavnik != null;
         public bool isStudent => student != null;
         public bool isAdmin { get; set; }
         public bool isProdekan { get; set; }
         public bool isDekan { get; set; }
         public bool isStudentskaSluzba { get; set; }
-        
- 
+
+        public byte[]? slika_korisnika_bajtovi { get; set; }
+        public bool isAktiviran { get; set; }
+        public string? aktivacijaGUID { get; set; }
     }
 }
